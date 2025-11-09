@@ -1,18 +1,17 @@
 {
-  "users": {
-    "user1": {
+  "users": [
+    {
+      "id": 1,
       "name": "Đức Duy",
       "email": "ducduy@abc.com",
       "wallets": [
         {
-          "name": "Tiền mặt",
-          "balance": 500000,
-          "currency": "VND"
+          "name": "Card",
+          "balance": "500000"
         },
         {
-          "name": "Thẻ ngân hàng",
-          "balance": 2000000,
-          "currency": "VND"
+          "name": "Cash",
+          "balance": "2000000"
         }
       ],
       "transactions": [
@@ -21,55 +20,46 @@
           "title": "Lunch",
           "amount": -50000,
           "date": "2025-11-06",
-          "paymentMethod": "Cash",
-          "wallet": "Tiền mặt"
+          "paymentMethod": "Cash"
         },
         {
           "category": "Transport",
           "title": "Bus ticket",
           "amount": -15000,
           "date": "2025-11-05",
-          "paymentMethod": "Card",
-          "wallet": "Thẻ ngân hàng"
+          "paymentMethod": "Card"
         }
-      ],
-      "report": {
-        "this_month": {
-          "inflow": 0,
-          "outflow": 65000,
-          "balance_change": -65000
-        },
-        "total_balance": 2500000
-      }
+      ]
     },
-    "user2": {
+    {
+      "id": 2,
       "name": "Thắng",
-      "email": "thang@abc.com",
       "wallets": [
         {
-          "name": "Thẻ tín dụng",
-          "balance": 1000000,
-          "currency": "VND"
+          "name": "Card",
+          "balance": "500000"
+        },
+        {
+          "name": "Cash",
+          "balance": "2000000"
         }
       ],
       "transactions": [
         {
-          "category": "Shopping",
-          "title": "Clothes",
-          "amount": -200000,
-          "date": "2025-11-03",
-          "paymentMethod": "Credit Card",
-          "wallet": "Thẻ tín dụng"
-        }
-      ],
-      "report": {
-        "this_month": {
-          "inflow": 0,
-          "outflow": 200000,
-          "balance_change": -200000
+          "category": "Food",
+          "title": "Lunch",
+          "amount": -50000,
+          "date": "2025-11-06",
+          "paymentMethod": "Cash"
         },
-        "total_balance": 1000000
-      }
+        {
+          "category": "Transport",
+          "title": "Bus ticket",
+          "amount": -15000,
+          "date": "2025-11-05",
+          "paymentMethod": "Card"
+        }
+      ]
     }
-  }
+  ]  
 }
