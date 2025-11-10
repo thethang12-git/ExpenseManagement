@@ -2,65 +2,101 @@
   "users": [
     {
       "id": 1,
-      "name": "Đức Duy",
-      "email": "ducduy@abc.com",
-      "wallets": [
-        {
-          "name": "Card",
-          "balance": "500000"
-        },
-        {
-          "name": "Cash",
-          "balance": "2000000"
-        }
-      ],
-      "transactions": [
-        {
-          "category": "Food",
-          "title": "Lunch",
-          "amount": -50000,
-          "date": "2025-11-06",
-          "paymentMethod": "Cash"
-        },
-        {
-          "category": "Transport",
-          "title": "Bus ticket",
-          "amount": -15000,
-          "date": "2025-11-05",
-          "paymentMethod": "Card"
-        }
-      ]
+      "username": "nguyenducduy@gmail.com",
+      "password": "123456",
+      "google_id": null
     },
     {
       "id": 2,
-      "name": "Thắng",
-      "email": "thang@abc.com",
-      "wallets": [
-        {
-          "name": "Card",
-          "balance": "500000"
-        },
-        {
-          "name": "Cash",
-          "balance": "2000000"
-        }
-      ],
-      "transactions": [
-        {
-          "category": "Food",
-          "title": "Lunch",
-          "amount": -50000,
-          "date": "2025-11-06",
-          "paymentMethod": "Cash"
-        },
-        {
-          "category": "Transport",
-          "title": "Bus ticket",
-          "amount": -15000,
-          "date": "2025-11-05",
-          "paymentMethod": "Card"
-        }
-      ]
+      "username": "thethang@gmail.com",
+      "password": "123123",
+      "google_id": null
     }
-  ]  
+  ],
+  "wallets": [
+    {
+      "id": 1,
+      "userId": 1,
+      "icon": ":moneybag:",
+      "name": "Main Wallet",
+      "default_balance": 1000,
+      "current_balance": 850
+    },
+    {
+      "id": 2,
+      "userId": 1,
+      "icon": ":bank:",
+      "name": "Savings",
+      "default_balance": 5000,
+      "current_balance": 5200
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "userId": 1,
+      "name": "Salary",
+      "is_income": false
+    },
+    {
+      "id": 2,
+      "userId": 1,
+      "name": "Food",
+      "is_income": false
+    },
+    {
+      "id": 3,
+      "userId": 1,
+      "name": "Transportation",
+      "is_income": true
+    },
+    {
+      "id": 4,
+      "userId": 2,
+      "name": "Investment",
+      "is_income": true
+    }
+  ],
+  "transactions": [
+    {
+      "userId": 1,
+      "id": 1,
+      "name": "Monthly Salary",
+      "money": 2000,
+      "categoryId": 1,
+      "walletId": 1,
+      "date": "2025-11-01",
+      "note": "October salary"
+    },
+    {
+      "userId": 1,
+      "id": 2,
+      "name": "Lunch",
+      "money": 10,
+      "categoryId": 2,
+      "walletId": 1,
+      "date": "2025-11-02",
+      "note": "Pizza with friends"
+    },
+    {
+      "userId": 1,
+      "id": 3,
+      "name": "Bus Ticket",
+      "money": 2.5,
+      "categoryId": 3,
+      "walletId": 1,
+      "date": "2025-11-03",
+      "note": "Daily commute"
+    },
+    {
+      "userId": 2,
+      "id": 4,
+      "name": "Stock Profit",
+      "money": 300,
+      "categoryId": 4,
+      "walletId": 2,
+      "date": "2025-11-05",
+      "note": "Gained from Tesla stock"
+    }
+  ]
 }
