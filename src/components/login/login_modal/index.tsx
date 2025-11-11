@@ -1,5 +1,4 @@
 "use client"
-import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -19,20 +18,19 @@ const style = {
     p: 4,
 };
 
-export default function LoginModal({open, setOpen, isAllow, setAllow, otp}: {
+export default function LoginModal({open, setOpen,otp, onOtpSuccess}: {
     open: boolean,
     setOpen: any,
-    isAllow: boolean,
-    setAllow: any,
     otp: number | undefined,
+    onOtpSuccess: () => void
 }) {
     const [userInputOtp, setNewOtp] = useState('')
-    const handleClose = () => {setOpen(false);setNewOtp('');}
+    const handleClose = () => {setOpen(false);setNewOtp('');onOtpSuccess();};
     const handleClick = () => {
         if(Number(userInputOtp) === otp ){
-            setAllow(true);
             setOpen(false);
-            alert("OTP đúng !!")
+            alert("OTP đúng,chuyển trang home ở đây !!")
+            onOtpSuccess();
         }
         else {
             alert('nhập sai, nhập lại')
@@ -42,7 +40,6 @@ export default function LoginModal({open, setOpen, isAllow, setAllow, otp}: {
         <div>
             <Modal
                 open={open}
-                onClose={handleClose}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
@@ -58,7 +55,7 @@ export default function LoginModal({open, setOpen, isAllow, setAllow, otp}: {
                         required
                         value={userInputOtp}
                         fullWidth={true}
-                        onChange={(e) => setNewOtp(e.target.value)}
+                        onChange={(e) => {setNewOtp(e.target.value)}}
                         name = "OTP"
                     />
                     <Button onClick={handleClick} className="w-full" variant={"contained"} style={{marginTop: '20px'}}> Nhập OTP</Button>
