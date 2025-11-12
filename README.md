@@ -8,9 +8,14 @@ npx json-server --watch db.json --port 3001
 ### Thư viện có sẵn:
 
 - Tailwind
-- Formilk
+- Formik
 - Redux
 - JSON server
+- MUI
+- React OAuth2 | Google
+- EmailJS
+- Axios
+- 
 
 > > ⚠️ : NẾU THÊM THƯ VIỆN NÀO THÌ CẬP NHẬT THÊM VÀO ĐÂY!!
 
