@@ -3,7 +3,10 @@ import { useFormik } from "formik";
 import emailjs from "@emailjs/browser";
 import React, {useRef} from "react";
 import {Button, TextField } from "@mui/material";
+import UserService from "@/src/service/dataService";
+import { useRouter } from "next/navigation";
 function Register() {
+    const router = useRouter();
     const [toggle, setToggle] = React.useState(true);
     const otp = useRef<number | undefined>(undefined);
     const formik = useFormik({
@@ -13,27 +16,41 @@ function Register() {
             password: "",
             OTP :""
         },
-        onSubmit: (values) => {
+        onSubmit: async (values) => {
             if (toggle) {
-                otp.current = Math.floor(100000 + Math.random() * 900000);
-                console.log(otp, formik.values);
-                const templateParams = {
-                    userName: formik.values.name,
-                    reply_to: formik.values.email,
-                    password: formik.values.password,
-                    passcode: otp.current
-                };
-                emailjs
-                    .send("service_0zq428t", "template_a1un4ul", templateParams, "nlUaqVMyxnXcmXKTk")
-                    .then(() => {
-                        setToggle(false)
-                        setTimeout(() => otp.current = undefined, 300 * 1000);
-                        })
-                    .catch((err) => alert("Kiểm tra lại email!"));
+                try {
+                    const user =await UserService.validateUser(values.email);
+                    if (!user) {
+                        otp.current = Math.floor(100000 + Math.random() * 900000);
+                        console.log(otp, values);
+                        const template = {
+                            userName: values.name,
+                            reply_to: values.email,
+                            password: values.password,
+                            passcode: otp.current
+                        };
+                        emailjs
+                            .send("service_0zq428t", "template_a1un4ul", template, "nlUaqVMyxnXcmXKTk")
+                            .then(() => {
+                                alert(' Xác minh địa chỉ email!')
+                                setToggle(false)
+                                setTimeout(() => otp.current = undefined, 300 * 1000);
+                            })
+                            .catch((err) => alert("Kiểm tra lại email!"));
+                    }
+                    else {
+                        alert('email đã có trên hệ thống, vui lòng đăng nhập, chuyển trang đăng nhập ')
+                        console.log(user,values)
+                        router.push("/login");
+                    }
+                }
+                catch (error) {alert(error)}
             }
             else {
-                if(Number(formik.values.OTP) === otp.current) {
-                    alert('đúng, chuyển trang!!')
+                if(Number(values.OTP) === otp.current) {
+                    alert('đúng, thêm mới user!!')
+                    await UserService.addUser(values)
+                    router.push("/login");
                 }
                 else {alert('sai, nhâpj lại')}
             }

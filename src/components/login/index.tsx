@@ -4,6 +4,7 @@ import { useFormik } from "formik";
 import emailjs from "@emailjs/browser";
 import { Button, TextField, Box, Typography } from "@mui/material";
 import GoogleButton from "../OathGoogle_button";
+import UserService from "@/src/service/dataService";
 
 function Login() {
   const [toggle, setToggle] = useState(true); 
@@ -16,34 +17,38 @@ function Login() {
       password: "",
       OTP: "",
     },
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       if (toggle) {
-        // Gửi OTP
-        otp.current = Math.floor(100000 + Math.random() * 900000);
-        const templateParams = {
-          reply_to: values.email,
-          password: values.password,
-          passcode: otp.current,
-        };
-
-        emailjs
-          .send(
-            "service_0zq428t",
-            "template_a1un4ul",
-            templateParams,
-            "nlUaqVMyxnXcmXKTk"
-          )
-          .then(() => {
-            alert("OTP đã gửi vào email của bạn!");
-            setToggle(false);
-            setOtpSent(true);
-          })
-          .catch(() => alert("Gửi OTP thất bại, kiểm tra lại email!"));
+          const user = await UserService.validateUser(values.email, values.password)
+          if (user) {
+              otp.current = Math.floor(100000 + Math.random() * 900000);
+          const template = {
+              reply_to: values.email,
+              password: values.password,
+              passcode: otp.current,
+          };
+          emailjs
+              .send(
+                  "service_0zq428t",
+                  "template_a1un4ul",
+                  template,
+                  "nlUaqVMyxnXcmXKTk"
+              )
+              .then(() => {
+                  alert("OTP đã gửi vào email!");
+                  setToggle(false);
+                  setOtpSent(true);
+              })
+              .catch(() => alert("Gửi OTP thất bại, kiểm tra lại email!"));}
+          else {
+              alert('Mật khâủ hoặc tên đăng nhập sai, thử lại!')
+              return
+          }
       } else {
         if (Number(values.OTP) === otp.current) {
-          alert("Đăng nhập thành công!");
+          alert("Đăng nhập thành công,chuyển trang!!");
         } else {
-          alert("OTP sai, vui lòng thử lại!");
+          alert("OTP sai, thử lại!");
         }
       }
     },
@@ -117,10 +122,9 @@ function Login() {
           {toggle ? "Gửi OTP" : "Đăng nhập"}
         </Button>
 
-        <Typography align="center" mt={2} mb={1}>
+        <Typography align="center" mt={0.5} >
           OR
         </Typography>
-
         <Box sx={{ display: "flex", justifyContent: "center" }}>
           <GoogleButton />
         </Box>
