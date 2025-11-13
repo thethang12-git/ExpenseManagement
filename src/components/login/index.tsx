@@ -43,7 +43,7 @@ function Login() {
               })
               .catch(() => alert("Gửi OTP thất bại, kiểm tra lại email!"));}
           else {
-              alert('Mật khâủ hoặc tên đăng nhập sai, thử lại!')
+              alert('Mật khẩu hoặc tên đăng nhập sai, thử lại!')
               return
           }
       } else {

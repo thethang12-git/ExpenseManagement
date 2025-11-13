@@ -2,7 +2,7 @@
 import { useFormik } from "formik";
 import emailjs from "@emailjs/browser";
 import React, {useRef} from "react";
-import {Button, TextField } from "@mui/material";
+import {Button, TextField, Typography } from "@mui/material";
 import UserService from "@/src/service/dataService";
 import { useRouter } from "next/navigation";
 function Register() {
@@ -59,8 +59,10 @@ function Register() {
 
     return (
         <div className="h-screen flex items-center justify-center ">
-            <form onSubmit={formik.handleSubmit} className=" max-w-sm mx-auto p-6 border-2 border-gray-300 rounded-xl shadow-md">
-                <h1 style={{textAlign:"center"}}> Trang đăng ký</h1>
+            <form onSubmit={formik.handleSubmit} className=" max-w-sm mx-auto p-6 border-2 border-gray-300 rounded-xl shadow-md w-full">
+                <Typography variant="h5" align="center" mb={3}>
+                    Đăng ký
+                </Typography>
                 <div className="relative z-0 w-full mb-5 group">
                     <input
                         type="text"
@@ -100,7 +102,9 @@ function Register() {
                         Password
                     </label>
                 </div>
-                <TextField
+                {
+                    !toggle && (
+                        <TextField
                     type={"number"}
                     id="outlined-basic"
                     label="OTP"
@@ -110,7 +114,10 @@ function Register() {
                     name = "OTP"
                     value={formik.values.OTP}
                     onChange={formik.handleChange}
-                />
+                    />
+                    )
+                }
+                
                 <Button style={{marginTop:"20px"}} type={"submit"} variant="contained">{toggle ? "Gửi OTP" : "Đăng ký"}</Button>
             </form>
         </div>
