@@ -16,7 +16,7 @@ export default function SideBarUser() {
             dispatch(setUser(JSON.parse(user)));
             setEmail(email);
         }
-    }, [userStored]);
+    }, []);
     return (
         <div style={{display: "flex",flexDirection:'column',marginTop:10}}>
             <Avatar

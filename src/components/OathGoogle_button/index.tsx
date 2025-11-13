@@ -24,15 +24,17 @@ function GoogleButton() {
               .then(async user => {
                 const validate = await UserService.validateUser(user.email)
                 if(validate) {
-                    alert("Google sidebarHeader info: " + user.email + "chuyển trang");
+                    localStorage.setItem("email", JSON.stringify(user.email));
+                    localStorage.setItem("user", JSON.stringify(user.name ));
+                    alert("Google user info: " + user.email + "chuyển trang");
                     router.push("/");
                 }
                 else {
-                    alert("Khoong tim thay sidebarHeader");
+                    alert("Khoong tim thay user");
                 }
               })
               .catch(err => {
-                console.error("Failed to fetch sidebarHeader info", err);
+                console.error("Failed to fetch user info", err);
               });
           }}
         onError={() => {

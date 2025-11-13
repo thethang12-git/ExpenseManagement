@@ -1,6 +1,5 @@
 "use client"
 import React from "react";
-import SideBar from "@/src/components/sidebar";
 import Header from "@/src/components/header";
 
 export default function HomeLayout({children,}: {

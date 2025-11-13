@@ -20,7 +20,7 @@ function Providers({ children }: ProvidersProps) {
             console.log('xin chào' + ' ' + currentUser);
         }
         else {
-            alert('không có sidebarHeader, chuyển trang đăng nhập ....')
+            alert('không tìm thấy dữ liệu người dùng, chuyển trang đăng nhập ....')
             router.push('/login');
         }
     }, []);

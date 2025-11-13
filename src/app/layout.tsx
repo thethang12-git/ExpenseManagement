@@ -2,6 +2,7 @@ import React from "react";
 import {Metadata} from "next";
 import "./globals.css";
 import Providers from '../store/provider';
+import InitUser from "@/src/app/initUser";
 
 export const metadata: Metadata = {
   title: "Project",
@@ -16,6 +17,7 @@ export default function RootLayout({
     <html lang="vi">
       <body>
       <Providers >
+          <InitUser/>
           {children}
       </Providers>
       </body>

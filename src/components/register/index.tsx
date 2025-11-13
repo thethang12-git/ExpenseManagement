@@ -48,7 +48,7 @@ function Register() {
             }
             else {
                 if(Number(values.OTP) === otp.current) {
-                    alert('đúng, thêm mới sidebarHeader!!')
+                    alert('đúng, thêm mới user')
                     await UserService.addUser(values)
                     router.push("/login");
                 }

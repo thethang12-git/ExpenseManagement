@@ -1,4 +1,4 @@
-import Stack from '@mui/material/Stack';
+"use client"
 import Button from '@mui/material/Button';
 
 export default function AddTransactionButton() {
