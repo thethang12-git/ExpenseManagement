@@ -2,21 +2,20 @@
   "users": [
     {
       "id": "1",
+      "name": "Nguyen Duc Duy",
       "username": "nguyenducduy@gmail.com",
-      "password": "123456",
-      "google_id": null
+      "password": "123456"
     },
     {
       "id": "2",
+      "name": "Thế Thắng",
       "username": "thethang@gmail.com",
-      "password": "123123",
-      "google_id": null
+      "password": "123123"
     },
     {
-      "id": "2aa1",
-      "name": "thế thắng",
-      "password": "123123",
-      "OTP": 212292,
+      "id": "27bd",
+      "name": "Thế Thắng",
+      "password": "",
       "username": "thethang.18.12@gmail.com"
     }
   ],
