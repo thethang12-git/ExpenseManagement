@@ -24,11 +24,23 @@ function GoogleButton() {
               .then(async user => {
                 const validate = await UserService.validateUser(user.email)
                 if(validate) {
+                    localStorage.setItem("email", JSON.stringify(user.email));
+                    localStorage.setItem("user", JSON.stringify(user.name ));
+                    localStorage.setItem("avatar", JSON.stringify(user.picture));
                     alert("Google user info: " + user.email + "chuyển trang");
                     router.push("/");
                 }
                 else {
-                    alert("Khoong tim thay user");
+                    UserService.addUser({
+                        name: user.name,
+                        email: user.email,
+                        password: "",
+                    });
+                    localStorage.setItem("email", JSON.stringify(user.email));
+                    localStorage.setItem("user", JSON.stringify(user.name ));
+                    localStorage.setItem("avatar", JSON.stringify(user.picture));
+                    alert("Thêm mới user, chuyển trang");
+                    router.push("/");
                 }
               })
               .catch(err => {

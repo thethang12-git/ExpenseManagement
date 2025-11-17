@@ -2,7 +2,7 @@
 import { useFormik } from "formik";
 import emailjs from "@emailjs/browser";
 import React, {useRef} from "react";
-import {Button, TextField } from "@mui/material";
+import {Button, Link, TextField, Typography } from "@mui/material";
 import UserService from "@/src/service/dataService";
 import { useRouter } from "next/navigation";
 function Register() {
@@ -48,7 +48,7 @@ function Register() {
             }
             else {
                 if(Number(values.OTP) === otp.current) {
-                    alert('đúng, thêm mới user!!')
+                    alert('đúng, thêm mới user')
                     await UserService.addUser(values)
                     router.push("/login");
                 }
@@ -59,8 +59,15 @@ function Register() {
 
     return (
         <div className="h-screen flex items-center justify-center ">
-            <form onSubmit={formik.handleSubmit} className=" max-w-sm mx-auto p-6 border-2 border-gray-300 rounded-xl shadow-md">
-                <h1 style={{textAlign:"center"}}> Trang đăng ký</h1>
+            <form
+                style={{
+                    backgroundColor: "rgba(255,255,255,0.7)",
+                    backdropFilter: "blur(8px)",
+                }}
+                onSubmit={formik.handleSubmit} className=" max-w-sm mx-auto p-6 border-2 border-gray-300 rounded-xl shadow-md w-full">
+                <Typography variant="h5" align="center" mb={3}>
+                    Đăng ký
+                </Typography>
                 <div className="relative z-0 w-full mb-5 group">
                     <input
                         type="text"
@@ -99,8 +106,13 @@ function Register() {
                     <label htmlFor="floating_email" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-left peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
                         Password
                     </label>
+                    <div style={{textAlign: "right"}}>
+
+                    </div>
                 </div>
-                <TextField
+                {
+                    !toggle && (
+                        <TextField
                     type={"number"}
                     id="outlined-basic"
                     label="OTP"
@@ -110,7 +122,18 @@ function Register() {
                     name = "OTP"
                     value={formik.values.OTP}
                     onChange={formik.handleChange}
-                />
+                    />
+                    )
+                }
+                <div style={{textAlign: "right"}}>
+                    <Link
+                        component="button"
+                        variant="body2"
+                        onClick={() => router.push("/login")}
+                    >
+                        Đăng nhập
+                    </Link>
+                </div>
                 <Button style={{marginTop:"20px"}} type={"submit"} variant="contained">{toggle ? "Gửi OTP" : "Đăng ký"}</Button>
             </form>
         </div>
