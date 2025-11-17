@@ -27,6 +27,7 @@ function GoogleButton() {
                     localStorage.setItem("email", JSON.stringify(user.email));
                     localStorage.setItem("user", JSON.stringify(user.name ));
                     localStorage.setItem("avatar", JSON.stringify(user.picture));
+                    localStorage.setItem("userId", JSON.stringify(validate.id));
                     alert("Google user info: " + user.email + "chuyển trang");
                     router.push("/");
                 }
@@ -39,6 +40,7 @@ function GoogleButton() {
                     localStorage.setItem("email", JSON.stringify(user.email));
                     localStorage.setItem("user", JSON.stringify(user.name ));
                     localStorage.setItem("avatar", JSON.stringify(user.picture));
+                    localStorage.setItem("userId", JSON.stringify(validate.id));
                     alert("Thêm mới user, chuyển trang");
                     router.push("/");
                 }

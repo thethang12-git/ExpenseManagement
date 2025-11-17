@@ -2,6 +2,7 @@
 
 export default function DateCard() {
     return (
+
         <div className="bg-gradient-to-br from-white via-blue-50/30 to-white rounded-2xl shadow-lg border border-gray-200/50 p-8 flex items-center justify-between hover:shadow-xl transition-all duration-300 hover:scale-[1.02] backdrop-blur-sm">
             <div className="flex items-center gap-6">
                 <div className="relative">

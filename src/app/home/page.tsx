@@ -2,8 +2,12 @@
 import HeaderHome from "@/src/components/home/HeaderHome"
 import SummaryCard from "@/src/components/home/SummaryCard"
 import DateCard from "@/src/components/home/DateCard"
+import TransactionList from "@/src/components/home/transactionList"
+import {useEffect, useState } from "react"
+import UserService from "@/src/service/dataService"
 
 export default function HomePage() {
+    const [transactions,setTransaction] = useState<any[]>([])
     return (
         <>
             <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/20 to-purple-50/20">
@@ -24,6 +28,7 @@ export default function HomePage() {
                         {/* Date Card */}
                         <DateCard />
                     </div>
+                    <TransactionList transactions={transactions} />
                 </div>
             </div>
         </>

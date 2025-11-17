@@ -18,6 +18,7 @@ function Login() {
           if (user) {
             localStorage.setItem("email", JSON.stringify(values.email));
             localStorage.setItem("user", JSON.stringify(user.name ));
+            localStorage.setItem("userId", JSON.stringify(user.id));
             console.log(user);
             alert("Đăng nhập thành công,chuyển trang!!");
             await router.push("/home");

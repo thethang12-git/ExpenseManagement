@@ -10,6 +10,7 @@ export default function InitUser() {
     const router = useRouter();
     useEffect(() => {
         const user = localStorage.getItem("user");
+        console.log(user);
         if (user) {
             dispatch(setUser(JSON.parse(user)));
             if(pathname == '/login' || pathname == '/register') {

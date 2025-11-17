@@ -18,5 +18,9 @@ class UserService {
         delete newUser.email;
         return await axios.post("http://localhost:3001/users",newUser)
     }
+    static async getTransactions(userID:any) {
+        const dataa = await axios.get(`http://localhost:3001/transactions`)
+        return dataa.data.filter( (item:{userId :any}) => item.userId.toString() == userID)
+    }
 }
 export default UserService;
