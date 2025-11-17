@@ -65,44 +65,70 @@
   ],
   "transactions": [
     {
-      "userId": 1,
+      "userId": "1",
       "id": "1",
       "name": "Monthly Salary",
       "money": 2000,
       "categoryId": 1,
       "walletId": 1,
       "date": "2025-11-01",
-      "note": "October salary"
+      "note": "October salary",
+      "currency" : "₫"
     },
     {
-      "userId": 1,
+      "userId": "1",
       "id": "2",
       "name": "Lunch",
-      "money": 10,
+      "money": -100000,
       "categoryId": 2,
       "walletId": 1,
       "date": "2025-11-02",
-      "note": "Pizza with friends"
+      "note": "Pizza with friends",
+      "currency" : "₫"
     },
     {
-      "userId": 1,
+      "userId": "1",
       "id": "3",
       "name": "Bus Ticket",
-      "money": 2.5,
+      "money": -25000,
       "categoryId": 3,
       "walletId": 1,
       "date": "2025-11-03",
-      "note": "Daily commute"
+      "note": "Daily commute",
+      "currency" : "₫"
     },
     {
-      "userId": 2,
+      "userId": "1",
       "id": "4",
+      "name": "Bus Ticket",
+      "money": -25000,
+      "categoryId": 3,
+      "walletId": 1,
+      "date": "2025-11-30",
+      "note": "Daily commute",
+      "currency" : "₫"
+    },
+    {
+      "userId": "1",
+      "id": "5",
+      "name": "Bus Ticket",
+      "money": -25000,
+      "categoryId": 3,
+      "walletId": 1,
+      "date": "2025-11-01",
+      "note": "Daily commute",
+      "currency" : "₫"
+    },
+    {
+      "userId": "2",
+      "id": "6",
       "name": "Stock Profit",
       "money": 300,
       "categoryId": 4,
       "walletId": 2,
       "date": "2025-11-05",
-      "note": "Gained from Tesla stock"
+      "note": "Gained from Tesla stock",
+      "currency" : "₫"
     }
   ]
 }

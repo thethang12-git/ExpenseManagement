@@ -1,43 +1,50 @@
-"use client"
+"use client";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import UserService from "@/src/service/dataService";
 
-import { Accordion, AccordionDetails, AccordionSummary, Typography } from "@mui/material"
-
-// Giả lập biểu tượng ExpandMoreIcon (không sử dụng thực sự trong trường hợp này)
-function ExpandMoreIcon() {
-    return null;
+interface Transaction {
+  id: number;
+  userId: number;
+  money: number;
+  date: string;
 }
 
-export default function Test() {
-    return (
-        <>
-            <div style={{height:'100vh', display: "flex",alignItems: "center",justifyContent:"center" }}>
-                <Accordion>
-                    <AccordionSummary >
-                        <div className="w-full bg-gradient-to-br from-white via-blue-50/30 to-white rounded-2xl shadow-lg border border-gray-200/50 p-8 flex items-center justify-between hover:shadow-xl transition-all duration-300 hover:scale-[1.02] backdrop-blur-sm">
-                            <div className="flex items-center gap-6" style={{ height: '100%' }}>
-                                <div className="relative" style={{ height: '100%' }}>
-                                    <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-2xl blur-xl"></div>
-                                    <div className="relative text-4xl font-extrabold bg-gradient-to-br from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                                        14
-                                    </div>
-                                </div>
-                                <div className="flex flex-col gap-1" style={{ height: '100%' }}>
-                                    <span className="text-gray-800 font-bold text-lg">Friday</span>
-                                    <span className="text-gray-500 text-sm font-medium">November 2025</span>
-                                </div>
-                            </div>
-                            <div className="flex items-center gap-2 px-5 py-3 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-xl border border-blue-200/50">
-                                <span className="text-blue-600 font-bold text-lg">+0 ₫</span>
-                            </div>
-                        </div>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                        malesuada lacus ex, sit amet blandit leo lobortis eget.
-                    </AccordionDetails>
-                </Accordion>
-            </div>
+export default function TestTransactionsPage() {
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const userId = 1; // Thay userId cần test
+  const month = "11"; // Tháng cần test (MM)
+  const year = "2025"; // Năm cần test (YYYY)
 
-        </>
-    )
+  useEffect(() => {
+    UserService.getTransactionsByMonth(userId,month,year).then(res =>
+        setTransactions(res.data)
+    ).catch(err => console.log(err))
+    },[]);
+
+  return (
+    <div className="p-6">
+      <h1 className="text-2xl font-bold mb-4">
+        Transactions tháng {month}/{year}
+      </h1>
+      <table className="border-collapse border border-gray-300">
+        <thead>
+          <tr>
+            <th className="border border-gray-300 px-3 py-1">ID</th>
+            <th className="border border-gray-300 px-3 py-1">Date</th>
+            <th className="border border-gray-300 px-3 py-1">Money</th>
+          </tr>
+        </thead>
+        <tbody>
+          {transactions.map((t) => (
+            <tr key={t.id}>
+              <td className="border border-gray-300 px-3 py-1">{t.id}</td>
+              <td className="border border-gray-300 px-3 py-1">{t.date}</td>
+              <td className="border border-gray-300 px-3 py-1">{t.money}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
 }

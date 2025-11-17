@@ -4,7 +4,7 @@ import { useState } from "react"
 
 type TabType = "LAST MONTH" | "THIS MONTH" | "FUTURE"
 
-export default function SummaryCard() {
+export default function SummaryCard({inFlow,outFlow}: {inFlow:number,outFlow:number}) {
     const [activeTab, setActiveTab] = useState<TabType>("THIS MONTH")
 
     const tabs: TabType[] = ["LAST MONTH", "THIS MONTH", "FUTURE"]
@@ -38,19 +38,19 @@ export default function SummaryCard() {
                         <div className="w-2 h-2 rounded-full bg-blue-500"></div>
                         <span className="text-gray-700 font-semibold">Inflow</span>
                     </div>
-                    <span className="text-blue-600 font-bold text-base">+0 ₫</span>
+                    <span className="text-blue-600 font-bold text-base">{inFlow.toLocaleString('de-DE')} ₫</span>
                 </div>
                 <div className="flex justify-between items-center p-4 rounded-xl bg-gradient-to-r from-red-50/50 to-pink-50/50 hover:from-red-50 hover:to-pink-50 transition-all duration-200 border border-red-100/50">
                     <div className="flex items-center gap-3">
                         <div className="w-2 h-2 rounded-full bg-red-500"></div>
                         <span className="text-gray-700 font-semibold">Outflow</span>
                     </div>
-                    <span className="text-red-600 font-bold text-base">-0 ₫</span>
+                    <span className="text-red-600 font-bold text-base">{outFlow.toLocaleString('de-DE')} ₫</span>
                 </div>
                 <div className="flex justify-between items-center pt-4 border-t-2 border-gray-200/50 mt-4">
                     <span className="text-gray-800 font-bold text-lg">NET</span>
-                    <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent font-extrabold text-lg">
-                        +0 ₫
+                    <span className="bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent font-extrabold text-lg">
+                        {(inFlow + outFlow).toLocaleString('de-DE')} ₫
                     </span>
                 </div>
             </div>
