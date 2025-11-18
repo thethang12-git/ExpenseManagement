@@ -9,6 +9,7 @@ import {useEffect, useState} from "react";
 import { useAppDispatch, useAppSelector } from '@/src/store/hooks';
 import  { setUser} from "@/src/store/slices/user";
 import SideBar from "../sidebar"
+import SearchModal from "@/src/components/search";
 
 export default function HeaderHome() {
     const [avatar, setAvatar] = useState<string | null>(null);
@@ -59,12 +60,7 @@ export default function HeaderHome() {
                         >
                             <HiOutlineChatBubbleLeftRight className="text-xl text-gray-600 group-hover:text-purple-600 transition-colors" />
                         </button>
-                        <button
-                            className="p-2.5 hover:bg-gray-100 rounded-xl transition-all duration-200 hover:scale-110 hover:shadow-md group"
-                            aria-label="Search"
-                        >
-                            <HiOutlineMagnifyingGlass className="text-xl text-gray-600 group-hover:text-orange-600 transition-colors" />
-                        </button>
+                        <SearchModal />
                         <button style={{borderRadius: '12px'}} className="px-5 py-2.5 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl hover:from-blue-600 hover:to-blue-700 transition-all duration-200 font-semibold text-sm shadow-md hover:shadow-lg hover:scale-105 active:scale-95">
                             ADD WALLET
                         </button>
