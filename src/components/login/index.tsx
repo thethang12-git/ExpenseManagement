@@ -16,7 +16,6 @@ import { useRouter } from "next/navigation";
 
 function Login() {
     const router = useRouter();
-
     const formik = useFormik({
         initialValues: {
             email: "",
@@ -24,7 +23,6 @@ function Login() {
         },
         onSubmit: async (values) => {
             const user = await UserService.validateUser(values.email, values.password);
-
             if (user) {
                 localStorage.setItem("email", JSON.stringify(values.email));
                 localStorage.setItem("user", JSON.stringify(user.name));

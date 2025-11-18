@@ -25,51 +25,91 @@ export default function Register() {
             password: "",
             OTP: "",
         },
+    //     onSubmit: async (values) => {
+    //         if (toggle) {
+    //             try {
+    //                 const user = await UserService.validateUser(values.email);
+    //                 if (!user) {
+    //                     otp.current = Math.floor(100000 + Math.random() * 900000);
+    //
+    //                     const template = {
+    //                         userName: values.name,
+    //                         reply_to: values.email,
+    //                         password: values.password,
+    //                         passcode: otp.current,
+    //                     };
+    //
+    //                     emailjs
+    //                         .send(
+    //                             "service_0zq428t",
+    //                             "template_a1un4ul",
+    //                             template,
+    //                             "nlUaqVMyxnXcmXKTk"
+    //                         )
+    //                         .then(() => {
+    //                             alert("Xác minh Email!");
+    //                             setToggle(false);
+    //                             setTimeout(() => (otp.current = undefined), 300 * 1000);
+    //                         })
+    //                         .catch(() => alert("Lỗi khi gửi email!"));
+    //                 } else {
+    //                     alert("Email đã tồn tại!");
+    //                     router.push("/login");
+    //                 }
+    //             } catch (err) {
+    //                 alert(err);
+    //             }
+    //         } else {
+    //             if (Number(values.OTP) === otp.current) {
+    //                 await UserService.addUser(values);
+    //                 alert("Tạo tài khoản thành công!");
+    //                 router.push("/login");
+    //             } else {
+    //                 alert("Sai OTP!");
+    //             }
+    //         }
+    //     },
+    // });
         onSubmit: async (values) => {
             if (toggle) {
                 try {
-                    const user = await UserService.validateUser(values.email);
+                    const user =await UserService.validateUser(values.email);
                     if (!user) {
                         otp.current = Math.floor(100000 + Math.random() * 900000);
-
+                        console.log(otp, values);
                         const template = {
                             userName: values.name,
                             reply_to: values.email,
                             password: values.password,
-                            passcode: otp.current,
+                            passcode: otp.current
                         };
-
                         emailjs
-                            .send(
-                                "service_0zq428t",
-                                "template_a1un4ul",
-                                template,
-                                "nlUaqVMyxnXcmXKTk"
-                            )
+                            .send("service_0zq428t", "template_a1un4ul", template, "nlUaqVMyxnXcmXKTk")
                             .then(() => {
-                                alert("Xác minh Email!");
-                                setToggle(false);
-                                setTimeout(() => (otp.current = undefined), 300 * 1000);
+                                alert(' Xác minh địa chỉ email!')
+                                setToggle(false)
+                                setTimeout(() => otp.current = undefined, 300 * 1000);
                             })
-                            .catch(() => alert("Lỗi khi gửi email!"));
-                    } else {
-                        alert("Email đã tồn tại!");
+                            .catch((err) => alert("Lỗi khi gửi email"));
+                    }
+                    else {
+                        alert('Email đã tồn tại!')
+                        console.log(user,values)
                         router.push("/login");
                     }
-                } catch (err) {
-                    alert(err);
                 }
-            } else {
-                if (Number(values.OTP) === otp.current) {
-                    await UserService.addUser(values);
-                    alert("Tạo tài khoản thành công!");
+                catch (error) {alert(error)}
+            }
+            else {
+                if(Number(values.OTP) === otp.current) {
+                    await UserService.addUser(values)
+                    alert('Tạo tài khoản thành công!')
                     router.push("/login");
-                } else {
-                    alert("Sai OTP!");
+                }
+                else {alert('sai OTP!')}
                 }
             }
-        },
-    });
+        });
 
     return (
         <div className="h-screen w-full flex items-center justify-center bg-gradient-to-br from-indigo-200 via-purple-200 to-pink-200">
