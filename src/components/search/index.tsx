@@ -1,8 +1,11 @@
+"use client"
 import React, {useRef, useState} from "react";
 import {HiOutlineMagnifyingGlass} from "react-icons/hi2";
 import {createPortal} from "react-dom";
+import HintList from "./hintList/hintList";
 
 export default function SearchModal() {
+    const [hintList,setHintList] = useState([])
     const [isOpen, setIsOpen] = useState(false);
     const [show, setShow] = useState(false);
     const [query, setQuery] = useState("");
@@ -23,7 +26,7 @@ export default function SearchModal() {
         setScale(true);
         setTimeout(() => setScale(false), 200); // Scale lại về bình thường sau 200ms
     };
-
+    const [hint,setHint] = useState('')
     return (
         <>
             <button
@@ -52,7 +55,7 @@ export default function SearchModal() {
                         style={{ marginTop: "10%" }}
                     >
                         {/* Header with input */}
-                        <div className="flex justify-between items-center px-6 py-4">
+                        <div style={{padding:'16px 24px 10px 24px'}} className="flex flex-col justify-between items-center relative">
                             <input
                                 ref={inputRef}
                                 type="text"
@@ -62,6 +65,9 @@ export default function SearchModal() {
                                 onFocus={handleFocus}
                                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition-transform duration-200"
                             />
+                            <div style={{position:"absolute", left:'10%',top:'100%',width:'360px',zIndex:'10',display:query.includes('/') || query === "" ? "none" : "block" }}>
+                                <HintList hintList={hintList} setHintList={setHintList} />
+                            </div>
                         </div>
 
                         {/* Body */}

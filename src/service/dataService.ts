@@ -25,7 +25,24 @@ class UserService {
         return await axios.get("http://localhost:3001/transactions", {params: { userId:userID, date:date }})
     }
     static async getTransactionsByMonth(userID:any,month:any,year:any){
-        return await axios.get("http://localhost:3001/transactions", {params: { userId:userID, startDate: `${year}-${month}-01`, endDate: `${year}-${month}-30` }})
+        const res =  await axios.get("http://localhost:3001/transactions", {params: { userId:userID }})
+        const monthNum = Number(month);
+        const yearNum = Number(year);
+        const result = res.data.filter((itm : any) => {
+            const dateObj = new Date(itm.date)
+            return (dateObj.getMonth() + 1 === monthNum) && (dateObj.getFullYear() === yearNum);
+        })
+        return result
+    }
+    static async getTransactionsByRange(userID:any,start : any,end: any) {
+        const res =  await axios.get("http://localhost:3001/transactions", {params: { userId:userID }})
+        const startDate = new Date(start)
+        const endDate = new Date(end)
+        const result = res.data.filter((itm : any) => {
+            const dateObj = new Date(itm.date)
+            return dateObj >= startDate && dateObj <= endDate;
+        })
+        return result
     }
 }
 export default UserService;

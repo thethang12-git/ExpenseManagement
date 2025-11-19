@@ -1,6 +1,6 @@
 "use client"
 import * as React from 'react';
-import {useState} from 'react';
+import {useState,useEffect} from 'react';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Popover from '@mui/material/Popover';
@@ -13,7 +13,7 @@ import {HiOutlineCalendar} from "react-icons/hi";
 import UserService from "@/src/service/dataService";
 
 
-export default function DateRangePicker({setTransaction}: any) {
+export default function DateRangePicker({transactions,setTransaction}: any) {
     const [start, setStart] = useState<Dayjs | null>(null);
     const [end, setEnd] = useState<Dayjs | null>(null);
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -23,23 +23,14 @@ export default function DateRangePicker({setTransaction}: any) {
     const open = Boolean(anchorEl);
     const handleSubmit = async () => {
         setAnchorEl(null);
-
-        // Format ngày YYYY-MM-DD
         const startDate = start ? start.format('YYYY-MM-DD') : null;
         const endDate = end ? end.format('YYYY-MM-DD') : null;
-
-        console.log('Start:', startDate, 'End:', endDate);
-
-        // Lấy userId từ localStorage
         const userIdStr = localStorage.getItem('userId');
         if (!userIdStr) return;
-
         const userId = JSON.parse(userIdStr);
-
         try {
-            const response = await UserService.getTransactionsByMonth(userId, '10', '2024');
-            console.log('API response:', response.data);
-            if (setTransaction) setTransaction(response.data);
+            const response = await UserService.getTransactionsByRange(userId, startDate, endDate);
+            if (setTransaction) setTransaction(response);
         } catch (err) {
             console.error('Error fetching transactions:', err);
         }
@@ -65,17 +56,19 @@ export default function DateRangePicker({setTransaction}: any) {
                             label="Start"
                             value={start}
                             onChange={(newValue) => setStart(newValue)}
+                            format="DD-MM-YYYY"
                         />
                         <DatePicker
                             label="End"
                             value={end}
                             onChange={(newValue) => setEnd(newValue)}
+                            format="DD-MM-YYYY"
                         />
-                        <Button variant="contained" onClick={() => {
+                        <Button sx={{ textTransform: 'none',fontSize:'15px' }} variant="contained" onClick={() => {
                             setAnchorEl(null);
                             handleSubmit();
                         }}>
-                            Xong
+                            Lọc
                         </Button>
                     </Paper>
                 </Popover>

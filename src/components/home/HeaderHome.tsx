@@ -12,7 +12,7 @@ import SideBar from "../sidebar"
 import SearchModal from "@/src/components/search";
 import DateRangePicker from "@/src/components/dateRangePicker";
 
-export default function HeaderHome({setTransaction} :any) {
+export default function HeaderHome({transactions,setTransaction} :any) {
     const [avatar, setAvatar] = useState<string | null>(null);
     const dispatch = useAppDispatch();
     useEffect(() => {
@@ -49,7 +49,7 @@ export default function HeaderHome({setTransaction} :any) {
 
                     {/* Right side - Icons and buttons */}
                     <div className="flex items-center gap-3">
-                        <DateRangePicker setTransaction ={setTransaction} />
+                        <DateRangePicker transactions ={ transactions} setTransaction ={setTransaction} />
                         <button
                             className="p-2.5 hover:bg-gray-100 rounded-xl transition-all duration-200 hover:scale-110 hover:shadow-md group"
                             aria-label="Chat"

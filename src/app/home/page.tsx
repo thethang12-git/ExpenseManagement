@@ -5,6 +5,7 @@ import DateCard from "@/src/components/home/DateCard"
 import TransactionList from "@/src/components/home/transactionList"
 import {useEffect, useRef, useState } from "react"
 import UserService from "@/src/service/dataService"
+import { Button } from "@mui/material"
 
 export default function HomePage() {
     const [transactions,setTransaction] = useState<any[]>([])
@@ -61,11 +62,11 @@ export default function HomePage() {
         const userId = localStorage.getItem("userId");
         if(userId){
             const trueId = JSON.parse(userId);
-            UserService.getTransactionsByMonth(trueId,monthMap[day.month],day.year)
+            UserService.getTransactionsByMonth(trueId,parseFloat(monthMap[day.month]),day.year)
             .then(res => {
-                setMonthData(res.data)
+                setMonthData(res)
                 // lọc để cập nhật inflow, outflow
-                const value = res.data.reduce(
+                const value = res.reduce(
                     (acc: any, transaction:any) => {
                         const amount = parseFloat(transaction.money)
                         if(amount > 0) {
@@ -79,11 +80,13 @@ export default function HomePage() {
                 )
                 setInFlow(value.inflow)
                 setOutFlow(value.outflow)
-                console.log(res.data) })   
+                }
+            )   
             .catch(err => 
                 console.log(err))
         }
         },[day.month,day.year]);
+        
     return (
         <>
             <div className="min-h-screen bg-linear-to-br from-gray-50 via-blue-50/20 to-purple-50/20">
@@ -93,7 +96,7 @@ export default function HomePage() {
                     <div className="absolute bottom-0 -right-20 w-96 h-96 bg-purple-200/20 rounded-full blur-3xl"></div>
                 </div>
                 {/* Header */}
-                <HeaderHome setTransactions={setTransaction}/>
+                <HeaderHome transactions= { transactions} setTransaction={setTransaction}/>
 
                 {/* Main Content */}
                 <div className="relative container mx-auto px-6 py-10 max-w-6xl">
