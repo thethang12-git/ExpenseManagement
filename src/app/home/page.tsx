@@ -3,8 +3,24 @@ import HeaderHome from "@/src/components/home/HeaderHome"
 import SummaryCard from "@/src/components/home/SummaryCard"
 import DateCard from "@/src/components/home/DateCard"
 import TransactionList from "@/src/components/home/transactionList"
-import {useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import UserService from "@/src/service/dataService"
+
+const MONTH_NAMES = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
+const MONTH_MAP: Record<string, string> = {
+    Jan: "01",
+    Feb: "02",
+    Mar: "03",
+    Apr: "04",
+    May: "05",
+    Jun: "06",
+    Jul: "07",
+    Aug: "08",
+    Sep: "09",
+    Oct: "10",
+    Nov: "11",
+    Dec: "12"
+}
 
 export default function HomePage() {
     const [transactions,setTransaction] = useState<any[]>([])
@@ -12,78 +28,94 @@ export default function HomePage() {
     const [inFlow,setInFlow] = useState<number>(0)
     const [outFlow,setOutFlow] = useState<number>(0)
     const [total,setTotal] = useState<number>(0)
-    const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-    const monthMap: { [key: string]: string } = {
-        Jan: '01',
-        Feb: '02',
-        Mar: '03',
-        Apr: '04',
-        May: '05',
-        Jun: '06',
-        Jul: '07',
-        Aug: '08',
-        Sep: '09',
-        Oct: '10',
-        Nov: '11',
-        Dec: '12'
-    };
+    const [wallets, setWallets] = useState<any[]>([])
+    const [recentWallet, setRecentWallet] = useState<any | null>(null)
+    const [walletLoading, setWalletLoading] = useState<boolean>(false)
     const todayDate = new Date();
     const [day, setDay] = useState({
         day: todayDate.getDate(),
-        month: monthNames[todayDate.getMonth()],
+        month: MONTH_NAMES[todayDate.getMonth()],
         year: todayDate.getFullYear(),
         weekday: todayDate.toLocaleDateString('en-US', { weekday: 'long' }) 
     });
-// get transaction by date
-    useEffect(() => {
+
+    const fetchTransactionsForSelectedDay = useCallback(async () => {
         const userId = localStorage.getItem("userId");
-        if(userId) {
-            const trueId = JSON.parse(userId);
-            const formattedDate = `${day.year}-${monthMap[day.month]}-${String(day.day).padStart(2, '0')}`;
-            UserService.getTransactionsByDate(trueId,formattedDate).then( res => {
-            // load transactions from DB
-            setTransaction(res.data)
-            const transactions= res.data
-            // calculate total
-            const totall = transactions.reduce((acc:number,value : any)=> {
+        if(!userId) return;
+        const trueId = JSON.parse(userId);
+        const formattedDate = `${day.year}-${MONTH_MAP[day.month]}-${String(day.day).padStart(2, '0')}`;
+        try {
+            const res = await UserService.getTransactionsByDate(trueId,formattedDate);
+            setTransaction(res.data);
+            const totall = res.data.reduce((acc:number,value : any)=> {
                 return acc += parseFloat(value.money)
             },0)
             setTotal(totall)
-            // 
-            console.log('kiểm tra xem useEffect có chạy nhiều lần không')
-        }).catch( err => {
+        } catch (err) {
             console.log(err);
-        } )
-    }
-    }, [day])
+        }
+    }, [day.day, day.month, day.year])
+
+    const fetchTransactionsForMonth = useCallback(async () => {
+        const userId = localStorage.getItem("userId");
+        if(!userId) return;
+        const trueId = JSON.parse(userId);
+        try {
+            const res = await UserService.getTransactionsByMonth(trueId,MONTH_MAP[day.month],day.year)
+            setMonthData(res.data)
+            const value = res.data.reduce(
+                (acc: any, transaction:any) => {
+                    const amount = parseFloat(transaction.money)
+                    if(amount > 0) {
+                        acc.inflow += amount
+                    }
+                    else {
+                        acc.outflow += amount
+                    }
+                    return acc
+                },{inflow : 0,outflow :0}
+            )
+            setInFlow(value.inflow)
+            setOutFlow(value.outflow)
+        } catch (err) {
+            console.log(err)
+        }
+    }, [day.month, day.year])
+
+// get transaction by date
+    useEffect(() => {
+        fetchTransactionsForSelectedDay()
+    }, [fetchTransactionsForSelectedDay])
     // Get transactions by month
     useEffect(() => {
+        fetchTransactionsForMonth()
+        },[fetchTransactionsForMonth]);
+    useEffect(() => {
         const userId = localStorage.getItem("userId");
-        if(userId){
-            const trueId = JSON.parse(userId);
-            UserService.getTransactionsByMonth(trueId,monthMap[day.month],day.year)
-            .then(res => {
-                setMonthData(res.data)
-                // lọc để cập nhật inflow, outflow
-                const value = res.data.reduce(
-                    (acc: any, transaction:any) => {
-                        const amount = parseFloat(transaction.money)
-                        if(amount > 0) {
-                            acc.inflow += amount
-                        }
-                        else {
-                            acc.outflow += amount
-                        }
-                        return acc
-                    },{inflow : 0,outflow :0}
-                )
-                setInFlow(value.inflow)
-                setOutFlow(value.outflow)
-                console.log(res.data) })   
-            .catch(err => 
-                console.log(err))
-        }
-        },[day.month,day.year]);
+        if(!userId) return;
+        const trueId = JSON.parse(userId);
+        setWalletLoading(true);
+        UserService.getWallets(trueId)
+            .then(res => setWallets(res.data ?? []))
+            .catch(err => console.log(err))
+            .finally(() => setWalletLoading(false));
+    }, []);
+
+    const handleWalletCreated = (wallet: any) => {
+        setWallets(prev => [wallet, ...prev]);
+        setRecentWallet(wallet);
+    };
+
+    const handleWalletUpdated = (updatedWallet: any) => {
+        setWallets(prev => prev.map(wallet => (wallet.id === updatedWallet.id ? updatedWallet : wallet)));
+        setRecentWallet(updatedWallet);
+    };
+
+    const handleTransactionCreated = useCallback(() => {
+        fetchTransactionsForSelectedDay()
+        fetchTransactionsForMonth()
+    }, [fetchTransactionsForMonth, fetchTransactionsForSelectedDay])
+
     return (
         <>
             <div className="min-h-screen bg-linear-to-br from-gray-50 via-blue-50/20 to-purple-50/20">
@@ -93,7 +125,15 @@ export default function HomePage() {
                     <div className="absolute bottom-0 -right-20 w-96 h-96 bg-purple-200/20 rounded-full blur-3xl"></div>
                 </div>
                 {/* Header */}
-                <HeaderHome setTransactions={setTransaction}/>
+                <HeaderHome
+                    total={total}
+                    setTransaction={setTransaction}
+                    onWalletCreated={handleWalletCreated}
+                    onWalletUpdated={handleWalletUpdated}
+                    onTransactionCreated={handleTransactionCreated}
+                    wallets={wallets}
+                    recentWallet={recentWallet}
+                />
 
                 {/* Main Content */}
                 <div className="relative container mx-auto px-6 py-10 max-w-6xl">

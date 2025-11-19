@@ -24,6 +24,12 @@
       "password": "123456",
       "OTP": 506565,
       "username": "maianhkhoi04@gmail.com"
+    },
+    {
+      "id": "bbb83b3c-7239-4662-b787-7068922dcbca",
+      "name": "đức duy",
+      "password": "",
+      "username": "duykk108@gmail.com"
     }
   ],
   "wallets": [
@@ -42,6 +48,33 @@
       "name": "Savings",
       "default_balance": 5000,
       "current_balance": 5200
+    },
+    {
+      "id": "a24a",
+      "userId": "3a8fd089-9899-4746-b856-9cda8e496ea6",
+      "name": "cash",
+      "description": "",
+      "icon": ":wallet:",
+      "default_balance": 0,
+      "current_balance": 130000
+    },
+    {
+      "id": "6b82",
+      "userId": "3a8fd089-9899-4746-b856-9cda8e496ea6",
+      "name": "tiên tiêu vặt",
+      "description": "dùng để đi chợ",
+      "icon": ":wallet:",
+      "default_balance": 0,
+      "current_balance": 10000
+    },
+    {
+      "id": "d6e9",
+      "userId": "bbb83b3c-7239-4662-b787-7068922dcbca",
+      "name": "cash",
+      "description": "",
+      "icon": ":wallet:",
+      "default_balance": 0,
+      "current_balance": 110000
     }
   ],
   "categories": [
@@ -80,7 +113,7 @@
       "walletId": 1,
       "date": "2025-11-01",
       "note": "October salary",
-      "currency" : "₫"
+      "currency": "₫"
     },
     {
       "userId": "1",
@@ -91,7 +124,7 @@
       "walletId": 1,
       "date": "2025-11-02",
       "note": "Pizza with friends",
-      "currency" : "₫"
+      "currency": "₫"
     },
     {
       "userId": "1",
@@ -102,7 +135,7 @@
       "walletId": 1,
       "date": "2025-11-03",
       "note": "Daily commute",
-      "currency" : "₫"
+      "currency": "₫"
     },
     {
       "userId": "1",
@@ -113,7 +146,7 @@
       "walletId": 1,
       "date": "2025-11-30",
       "note": "Daily commute",
-      "currency" : "₫"
+      "currency": "₫"
     },
     {
       "userId": "1",
@@ -124,7 +157,7 @@
       "walletId": 1,
       "date": "2025-11-01",
       "note": "Daily commute",
-      "currency" : "₫"
+      "currency": "₫"
     },
     {
       "userId": "2",
@@ -135,7 +168,67 @@
       "walletId": 2,
       "date": "2025-11-05",
       "note": "Gained from Tesla stock",
-      "currency" : "₫"
+      "currency": "₫"
+    },
+    {
+      "id": "44886e5e-7893-44d4-b4ad-8b807b84fc15",
+      "userId": "3a8fd089-9899-4746-b856-9cda8e496ea6",
+      "walletId": "a24a",
+      "money": 10000,
+      "name": "Nạp tiền vào ví",
+      "note": "",
+      "currency": "₫",
+      "date": "2025-11-19"
+    },
+    {
+      "id": "625e6b98-a2b4-49a9-9816-4c313a55f126",
+      "userId": "3a8fd089-9899-4746-b856-9cda8e496ea6",
+      "walletId": "a24a",
+      "money": 100000,
+      "name": "Nạp tiền vào ví",
+      "note": "",
+      "currency": "₫",
+      "date": "2025-11-19"
+    },
+    {
+      "id": "52f7a640-ae47-4eea-90a3-ce420942bb4e",
+      "userId": "3a8fd089-9899-4746-b856-9cda8e496ea6",
+      "walletId": "a24a",
+      "money": 20000,
+      "name": "Nạp tiền vào ví",
+      "note": "",
+      "currency": "₫",
+      "date": "2025-11-19"
+    },
+    {
+      "id": "d96fea2b-6f5d-482d-b821-f5001df0c048",
+      "userId": "3a8fd089-9899-4746-b856-9cda8e496ea6",
+      "walletId": "6b82",
+      "money": 10000,
+      "name": "Nạp tiền vào ví",
+      "note": "1000",
+      "currency": "₫",
+      "date": "2025-11-19"
+    },
+    {
+      "id": "6c52ac9c-2b5f-44d0-8860-c63cf919edf1",
+      "userId": "bbb83b3c-7239-4662-b787-7068922dcbca",
+      "walletId": "d6e9",
+      "money": 100000,
+      "name": "Nạp tiền vào ví",
+      "note": "",
+      "currency": "₫",
+      "date": "2025-11-19"
+    },
+    {
+      "id": "1449f8c1-0e32-4553-a33c-ab64c3594476",
+      "userId": "bbb83b3c-7239-4662-b787-7068922dcbca",
+      "walletId": "d6e9",
+      "money": 10000,
+      "name": "Nạp tiền vào ví",
+      "note": "",
+      "currency": "₫",
+      "date": "2025-11-19"
     }
   ]
 }
