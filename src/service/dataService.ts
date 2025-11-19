@@ -44,5 +44,17 @@ class UserService {
         })
         return result
     }
+    static async getCategories(userID:any){
+        return await axios.get("http://localhost:3001/categories", {params: { userId:userID }})
+    }
+    static async addCategory(category:any){
+        return await axios.post("http://localhost:3001/categories", category)
+    }
+    static async updateCategory(categoryId:any, category:any){
+        return await axios.put(`http://localhost:3001/categories/${categoryId}`, category)
+    }
+    static async deleteCategory(categoryId:any){
+        return await axios.delete(`http://localhost:3001/categories/${categoryId}`)
+    }
 }
 export default UserService;
