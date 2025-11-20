@@ -31,9 +31,10 @@
       "id": "1",
       "userId": 1,
       "icon": ":moneybag:",
-      "name": "Main Wallet",
+      "name": "ví mới",
       "default_balance": 1000,
-      "current_balance": 850
+      "current_balance": 2000,
+      "description": ""
     },
     {
       "id": "2",

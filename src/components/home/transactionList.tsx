@@ -25,7 +25,7 @@ export default function TransactionList({ transactions }: any) {
         <div className="mt-8 w-full">
             <h2 className="text-2xl font-bold mb-4">Transaction History</h2>
             <div className="space-y-4">
-                {transactions.map((itm:any) => {
+                {transactions.slice().reverse().map((itm:any) => {
                     const money = parseFloat(itm.money);
                     return (
                     <div key={itm.id} className="bg-white p-5 mb-4 rounded-lg shadow-md flex items-center justify-between hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
