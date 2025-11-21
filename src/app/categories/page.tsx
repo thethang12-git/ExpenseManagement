@@ -33,11 +33,9 @@ export default function Categories() {
                 setLoading(false)
             })
     }
-
     useEffect(function loadCategoriesOnMount() {
         loadCategories()
     }, [])
-
     function handleCategoryClick(categoryId: string) {
         if (selectedCategoryId === categoryId) {
             setSelectedCategoryId(null)
@@ -45,17 +43,14 @@ export default function Categories() {
             setSelectedCategoryId(categoryId)
         }
     }
-
     function handleCategoryCardClick(category: Category) {
         handleCategoryClick(category.id)
     }
-
     function handleAddCategory() {
         setEditingCategory(null)
         setModalType("expense")
         setIsModalOpen(true)
     }
-
     function handleEditCategory(category: Category) {
         setEditingCategory(category)
         if (category.is_income === true) {
@@ -65,7 +60,6 @@ export default function Categories() {
         }
         setIsModalOpen(true)
     }
-
     function handleSaveCategory(categoryData: { name: string; note: string; is_income: boolean }) {
         const userId = localStorage.getItem("userId")
         if (userId === null) {

@@ -43,6 +43,15 @@
       "name": "Savings",
       "default_balance": 5000,
       "current_balance": 5200
+    },
+    {
+      "id": "c383",
+      "userId": "1",
+      "name": "ví mới",
+      "description": "",
+      "icon": ":wallet:",
+      "default_balance": 0,
+      "current_balance": 0
     }
   ],
   "categories": [
@@ -71,27 +80,28 @@
       "is_income": true
     }
   ],
-  "transactions": [
+  "transactions": 
+  [
     {
       "userId": "1",
       "id": "1",
-      "name": "Monthly Salary",
-      "money": 2000,
-      "categoryId": 1,
+      "name": "Breakfast",
+      "money": -30000,
+      "categoryId": 2,
       "walletId": 1,
-      "date": "2025-11-01",
-      "note": "October salary",
+      "date": "2025-11-04",
+      "note": "Bánh mì + sữa",
       "currency": "₫"
     },
     {
       "userId": "1",
       "id": "2",
-      "name": "Lunch",
-      "money": -100000,
+      "name": "Snacks",
+      "money": -15000,
       "categoryId": 2,
       "walletId": 1,
-      "date": "2025-11-02",
-      "note": "Pizza with friends",
+      "date": "2025-11-04",
+      "note": "Mua snack lúc chiều",
       "currency": "₫"
     },
     {
@@ -101,41 +111,262 @@
       "money": -25000,
       "categoryId": 3,
       "walletId": 1,
-      "date": "2025-11-03",
+      "date": "2025-11-04",
       "note": "Daily commute",
       "currency": "₫"
     },
     {
       "userId": "1",
       "id": "4",
-      "name": "Bus Ticket",
-      "money": -25000,
-      "categoryId": 3,
+      "name": "Dinner",
+      "money": -75000,
+      "categoryId": 2,
       "walletId": 1,
-      "date": "2025-11-30",
-      "note": "Daily commute",
+      "date": "2025-11-05",
+      "note": "Ăn cơm tấm",
       "currency": "₫"
     },
     {
       "userId": "1",
       "id": "5",
-      "name": "Bus Ticket",
-      "money": -25000,
-      "categoryId": 3,
+      "name": "Top-up Bonus",
+      "money": 100,
+      "categoryId": 4,
       "walletId": 1,
-      "date": "2025-11-01",
-      "note": "Daily commute",
+      "date": "2025-11-05",
+      "note": "Thưởng ví điện tử",
+      "currency": "₫"
+    },
+    {
+      "userId": "1",
+      "id": "6",
+      "name": "Laundry",
+      "money": -50000,
+      "categoryId": 5,
+      "walletId": 1,
+      "date": "2025-11-06",
+      "note": "Giặt đồ tuần này",
+      "currency": "₫"
+    },
+    {
+      "userId": "1",
+      "id": "7",
+      "name": "Groceries",
+      "money": -350000,
+      "categoryId": 5,
+      "walletId": 1,
+      "date": "2025-11-04",
+      "note": "Bought vegetables and meat",
+      "currency": "₫"
+    },
+    {
+      "userId": "1",
+      "id": "8",
+      "name": "Coffee",
+      "money": -45000,
+      "categoryId": 2,
+      "walletId": 1,
+      "date": "2025-11-05",
+      "note": "Morning coffee",
+      "currency": "₫"
+    },
+    {
+      "userId": "1",
+      "id": "9",
+      "name": "Electricity Bill",
+      "money": -600000,
+      "categoryId": 6,
+      "walletId": 1,
+      "date": "2025-11-06",
+      "note": "Monthly utility bill",
+      "currency": "₫"
+    },
+    {
+      "userId": "1",
+      "id": "10",
+      "name": "Water Bill",
+      "money": -150000,
+      "categoryId": 6,
+      "walletId": 1,
+      "date": "2025-11-06",
+      "note": "Monthly utility bill",
+      "currency": "₫"
+    },
+    {
+      "userId": "1",
+      "id": "11",
+      "name": "Gym Membership",
+      "money": -300000,
+      "categoryId": 7,
+      "walletId": 1,
+      "date": "2025-11-07",
+      "note": "Monthly membership fee",
+      "currency": "₫"
+    },
+    {
+      "userId": "1",
+      "id": "12",
+      "name": "Book Purchase",
+      "money": -120000,
+      "categoryId": 8,
+      "walletId": 1,
+      "date": "2025-11-08",
+      "note": "Self-help book",
+      "currency": "₫"
+    },
+    {
+      "userId": "1",
+      "id": "13",
+      "name": "Freelance Income",
+      "money": 500000,
+      "categoryId": 4,
+      "walletId": 1,
+      "date": "2025-11-09",
+      "note": "Website design",
+      "currency": "₫"
+    },
+    {
+      "userId": "1",
+      "id": "14",
+      "name": "Dinner",
+      "money": -180000,
+      "categoryId": 2,
+      "walletId": 1,
+      "date": "2025-11-10",
+      "note": "Dinner with coworkers",
+      "currency": "₫"
+    },
+    {
+      "userId": "1",
+      "id": "15",
+      "name": "Gasoline",
+      "money": -200000,
+      "categoryId": 9,
+      "walletId": 1,
+      "date": "2025-11-11",
+      "note": "Motorbike fuel",
+      "currency": "₫"
+    },
+    {
+      "userId": "1",
+      "id": "16",
+      "name": "Phone Bill",
+      "money": -120000,
+      "categoryId": 6,
+      "walletId": 1,
+      "date": "2025-11-12",
+      "note": "Monthly phone plan",
+      "currency": "₫"
+    },
+
+    {
+      "userId": "2",
+      "id": "17",
+      "name": "Crypto Profit",
+      "money": 700,
+      "categoryId": 4,
+      "walletId": 2,
+      "date": "2025-11-07",
+      "note": "Sold ETH",
       "currency": "₫"
     },
     {
       "userId": "2",
-      "id": "6",
-      "name": "Stock Profit",
-      "money": 300,
+      "id": "18",
+      "name": "Groceries",
+      "money": -200000,
+      "categoryId": 5,
+      "walletId": 2,
+      "date": "2025-11-08",
+      "note": "Weekly groceries",
+      "currency": "₫"
+    },
+    {
+      "userId": "2",
+      "id": "19",
+      "name": "Coffee",
+      "money": -40000,
+      "categoryId": 2,
+      "walletId": 2,
+      "date": "2025-11-09",
+      "note": "Black coffee",
+      "currency": "₫"
+    },
+    {
+      "userId": "2",
+      "id": "20",
+      "name": "Online Course",
+      "money": -300000,
+      "categoryId": 8,
+      "walletId": 2,
+      "date": "2025-11-10",
+      "note": "Udemy course",
+      "currency": "₫"
+    },
+    {
+      "userId": "2",
+      "id": "21",
+      "name": "Taxi Ride",
+      "money": -90000,
+      "categoryId": 3,
+      "walletId": 2,
+      "date": "2025-11-11",
+      "note": "Airport transfer",
+      "currency": "₫"
+    },
+    {
+      "userId": "2",
+      "id": "22",
+      "name": "Salary",
+      "money": 1500,
+      "categoryId": 1,
+      "walletId": 2,
+      "date": "2025-11-12",
+      "note": "Monthly salary",
+      "currency": "₫"
+    },
+    {
+      "userId": "2",
+      "id": "23",
+      "name": "Snacks",
+      "money": -25000,
+      "categoryId": 2,
+      "walletId": 2,
+      "date": "2025-11-13",
+      "note": "Bought chips",
+      "currency": "₫"
+    },
+    {
+      "userId": "2",
+      "id": "24",
+      "name": "Gym Membership",
+      "money": -400000,
+      "categoryId": 7,
+      "walletId": 2,
+      "date": "2025-11-14",
+      "note": "Monthly fee",
+      "currency": "₫"
+    },
+    {
+      "userId": "2",
+      "id": "25",
+      "name": "Electricity Bill",
+      "money": -500000,
+      "categoryId": 6,
+      "walletId": 2,
+      "date": "2025-11-15",
+      "note": "Home utilities",
+      "currency": "₫"
+    },
+    {
+      "userId": "2",
+      "id": "26",
+      "name": "Sold Old Laptop",
+      "money": 2000000,
       "categoryId": 4,
       "walletId": 2,
-      "date": "2025-11-05",
-      "note": "Gained from Tesla stock",
+      "date": "2025-11-16",
+      "note": "Sold used laptop",
       "currency": "₫"
     }
   ]

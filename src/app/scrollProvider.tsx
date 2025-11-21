@@ -23,10 +23,10 @@ export default function ScrollProvider({ children }: { children: ReactNode }) {
         refs.current[key] = ref;
     };
 
-    const scrollToSection = (key: string) => {
+    const scrollToSection = (key: string,mode?:any) => {
         refs.current[key]?.current?.scrollIntoView({
             behavior: "smooth",
-            block: "start",
+            block: mode ? 'center' : 'start',
         });
     };
     const animation = (key: string) => {

@@ -9,7 +9,7 @@ export default function SearchList({ setTransaction,closeModal,query, searchList
     const handleClick = (itm: { id: any; }) => {
         closeModal();
         setTransaction(searchList)
-        setTimeout(() => {scrollToSection(`transaction-${itm.id}`);animation(`transactions-${itm.id}`)},200)
+        setTimeout(() => {scrollToSection(`transaction-${itm.id}`,'center');animation(`transactions-${itm.id}`)},200)
     }
 
     return (
