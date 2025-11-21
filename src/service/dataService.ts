@@ -82,6 +82,37 @@ class UserService {
         return await axios.patch(`http://localhost:3001/wallets/${walletId}`, updates);
     }
 
+    static async deleteWallet(walletId: any) {
+        if (!walletId) {
+            throw new Error("walletId is required to delete wallet");
+        }
+        return await axios.delete(`http://localhost:3001/wallets/${walletId}`);
+    }
+
+    static async deleteTransactionsByWallet(walletId: any) {
+        if (!walletId) {
+            throw new Error("walletId is required to delete transactions");
+        }
+        const response = await axios.get("http://localhost:3001/transactions", { params: { walletId } });
+        const transactions = Array.isArray(response.data) ? response.data : [];
+
+        await Promise.all(
+            transactions.map((transaction: any) =>
+                axios.delete(`http://localhost:3001/transactions/${transaction.id}`),
+            ),
+        );
+
+        return transactions.length;
+    }
+
+    static async deleteWalletAndTransactions(walletId: any) {
+        if (!walletId) {
+            throw new Error("walletId is required to delete wallet and transactions");
+        }
+        await this.deleteTransactionsByWallet(walletId);
+        return await this.deleteWallet(walletId);
+    }
+
     static async createTransaction(transaction: any) {
         if (!transaction) {
             throw new Error("transaction payload is required");

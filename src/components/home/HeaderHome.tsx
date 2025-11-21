@@ -1,6 +1,6 @@
 "use client"
 import { FiGlobe } from "react-icons/fi"
-import { HiOutlineChatBubbleLeftRight, HiCheckCircle, HiOutlinePencilSquare, HiOutlinePlusCircle } from "react-icons/hi2"
+import { HiOutlineChatBubbleLeftRight, HiCheckCircle, HiOutlinePencilSquare, HiOutlinePlusCircle, HiOutlineTrash } from "react-icons/hi2"
 import { HiChevronDown } from "react-icons/hi"
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useAppDispatch } from '@/src/store/hooks';
@@ -11,6 +11,7 @@ import DateRangePicker from "@/src/components/dateRangePicker";
 import AddWalletModal from "@/src/components/wallet/AddWalletModal";
 import EditWalletModal from "@/src/components/wallet/EditWalletModal";
 import AddMoneyModal from "@/src/components/wallet/AddMoneyModal";
+import UserService from "@/src/service/dataService";
 
 interface HeaderHomeProps {
     setTransaction: (transactions: any[]) => void;
@@ -20,6 +21,7 @@ interface HeaderHomeProps {
     onWalletCreated?: (wallet: any) => void;
     onWalletUpdated?: (wallet: any) => void;
     onTransactionCreated?: () => void;
+    onWalletDeleted?: (walletId: string | number) => void;
 }
 
 export default function HeaderHome({
@@ -30,6 +32,7 @@ export default function HeaderHome({
     onWalletCreated,
     onWalletUpdated,
     onTransactionCreated,
+    onWalletDeleted,
 }: HeaderHomeProps) {
     const formatCurrency = useMemo(
         () => new Intl.NumberFormat("vi-VN", {
@@ -50,6 +53,8 @@ export default function HeaderHome({
     const dispatch = useAppDispatch();
     const [isAddMoneyModalOpen, setIsAddMoneyModalOpen] = useState(false);
     const [walletForDeposit, setWalletForDeposit] = useState<any | null>(null);
+    const [deletingWalletId, setDeletingWalletId] = useState<string | number | null>(null);
+    const [deleteError, setDeleteError] = useState<string | null>(null);
     useEffect(() => {
         const user = localStorage.getItem("user");
         const email = localStorage.getItem("email");
@@ -103,6 +108,28 @@ export default function HeaderHome({
         onWalletUpdated?.(wallet);
         setHighlightWalletId(wallet.id);
         setEditingWallet(null);
+        setDeleteError(null);
+    };
+
+    const handleDeleteWallet = async (wallet: any) => {
+        if (!wallet?.id) return;
+        const confirmed = window.confirm(`Bạn có chắc chắn muốn xóa ví "${wallet.name}" và toàn bộ lịch sử giao dịch của ví này?`);
+        if (!confirmed) return;
+
+        try {
+            setDeletingWalletId(wallet.id);
+            setDeleteError(null);
+            await UserService.deleteWalletAndTransactions(wallet.id);
+            if (selectedWalletId === wallet.id) {
+                setSelectedWalletId(null);
+            }
+            onWalletDeleted?.(wallet.id);
+            onTransactionCreated?.();
+        } catch (err) {
+            setDeleteError("Không thể xóa ví. Vui lòng thử lại.");
+        } finally {
+            setDeletingWalletId(null);
+        }
     };
 
     return (
@@ -185,10 +212,10 @@ export default function HeaderHome({
                                                                 : "border-gray-100 bg-gray-50 hover:border-green-200"
                                                     }`}
                                                 >
-                                                    <div className="flex items-center gap-2">
+                                                    <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
                                                         <button
                                                             type="button"
-                                                            className="flex flex-1 items-center justify-between gap-3 text-left"
+                                                            className="flex flex-1 items-center justify-between gap-3 rounded-lg bg-white/70 px-2 py-1 text-left transition hover:bg-white"
                                                             onClick={() => {
                                                                 setSelectedWalletId(wallet.id);
                                                                 setIsWalletInfoOpen(false);
@@ -209,30 +236,50 @@ export default function HeaderHome({
                                                                     <HiCheckCircle className="text-green-500 text-lg" />
                                                                 )}
                                                             </div>
-                                                           
                                                         </button>
-                                                        <button
-                                                            type="button"
-                                                            onClick={event => {
-                                                                event.stopPropagation();
-                                                                setWalletForDeposit(wallet);
-                                                                setIsAddMoneyModalOpen(true);
-                                                            }}
-                                                            aria-label={`Thêm tiền vào ví ${wallet.name}`}
-                                                            className="rounded-full border border-gray-200 p-1 text-gray-500 hover:border-green-300 hover:text-green-600"
-                                                        >
-                                                            <HiOutlinePlusCircle className="text-lg" />
-                                                        </button>
-                                                        <button
-                                                            type="button"
-                                                            aria-label={`Chỉnh sửa ví ${wallet.name}`}
-                                                            onClick={() => {
-                                                                setEditingWallet(wallet);
-                                                            }}
-                                                            className="rounded-full border border-gray-200 p-1 text-gray-500 hover:border-green-300 hover:text-green-600"
-                                                        >
-                                                            <HiOutlinePencilSquare className="text-lg" />
-                                                        </button>
+                                                        <div className="flex items-center justify-end gap-1">
+                                                            <button
+                                                                type="button"
+                                                                title="Thêm tiền"
+                                                                onClick={event => {
+                                                                    event.stopPropagation();
+                                                                    setWalletForDeposit(wallet);
+                                                                    setIsAddMoneyModalOpen(true);
+                                                                }}
+                                                                aria-label={`Thêm tiền vào ví ${wallet.name}`}
+                                                                className="rounded-full border border-gray-200 p-1.5 text-gray-500 transition hover:border-green-300 hover:text-green-600"
+                                                            >
+                                                                <HiOutlinePlusCircle className="text-base" />
+                                                            </button>
+                                                            <button
+                                                                type="button"
+                                                                title="Chỉnh sửa"
+                                                                aria-label={`Chỉnh sửa ví ${wallet.name}`}
+                                                                onClick={() => {
+                                                                    setEditingWallet(wallet);
+                                                                }}
+                                                                className="rounded-full border border-gray-200 p-1.5 text-gray-500 transition hover:border-blue-300 hover:text-blue-600"
+                                                            >
+                                                                <HiOutlinePencilSquare className="text-base" />
+                                                            </button>
+                                                            <button
+                                                                type="button"
+                                                                title="Xóa ví"
+                                                                aria-label={`Xóa ví ${wallet.name}`}
+                                                                disabled={deletingWalletId === wallet.id}
+                                                                onClick={event => {
+                                                                    event.stopPropagation();
+                                                                    handleDeleteWallet(wallet);
+                                                                }}
+                                                                className="rounded-full border border-gray-200 p-1.5 text-gray-500 transition hover:border-red-300 hover:text-red-600 disabled:cursor-not-allowed disabled:opacity-60"
+                                                            >
+                                                                {deletingWalletId === wallet.id ? (
+                                                                    <span className="text-[10px] font-semibold">...</span>
+                                                                ) : (
+                                                                    <HiOutlineTrash className="text-base" />
+                                                                )}
+                                                            </button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             ))
@@ -244,6 +291,11 @@ export default function HeaderHome({
                                             </div>
                                         )}
                                     </div>
+                                    {deleteError && (
+                                        <div className="mt-3 rounded-xl bg-red-50 px-3 py-2 text-xs text-red-600">
+                                            {deleteError}
+                                        </div>
+                                    )}
                                 </div>
                             )}
                         </div>
@@ -264,7 +316,7 @@ export default function HeaderHome({
                             className="px-5 py-2.5 bg-linear-to-r from-blue-500 to-blue-600 text-white rounded-xl hover:from-blue-600 hover:to-blue-700 transition-all duration-200 font-semibold text-sm shadow-md hover:shadow-lg hover:scale-105 active:scale-95">
                             ADD WALLET
                         </button>
-                        <button style={{borderRadius: '12px'}} className="px-5 py-2.5 bg-linear-to-r from-green-500 to-green-600 text-white rounded-xl hover:from-green-600 hover:to-green-700 transition-all duration-200 font-semibold text-sm shadow-md hover:shadow-lg hover:scale-105 active:scale-95">
+                        <button  style={{borderRadius: '12px'}} className="px-5 py-2.5 bg-linear-to-r from-green-500 to-green-600 text-white rounded-xl hover:from-green-600 hover:to-green-700 transition-all duration-200 font-semibold text-sm shadow-md hover:shadow-lg hover:scale-105 active:scale-95">
                             ADD TRANSACTION
                         </button>
                         <button style={{borderRadius: '50%'}}

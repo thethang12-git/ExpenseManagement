@@ -68,13 +68,22 @@
       "current_balance": 10000
     },
     {
-      "id": "d6e9",
+      "id": "6d69",
       "userId": "bbb83b3c-7239-4662-b787-7068922dcbca",
-      "name": "cash",
+      "name": "tài khoản ngân hàng",
       "description": "",
       "icon": ":wallet:",
       "default_balance": 0,
-      "current_balance": 110000
+      "current_balance": 100000
+    },
+    {
+      "id": "4dd6",
+      "userId": "bbb83b3c-7239-4662-b787-7068922dcbca",
+      "name": "tiền mặt",
+      "description": "dùng để đi chợ",
+      "icon": ":wallet:",
+      "default_balance": 0,
+      "current_balance": 20000
     }
   ],
   "categories": [
@@ -211,24 +220,24 @@
       "date": "2025-11-19"
     },
     {
-      "id": "6c52ac9c-2b5f-44d0-8860-c63cf919edf1",
+      "id": "2dfd81b6-3ca6-4835-80d0-8ea84e5a1cdb",
       "userId": "bbb83b3c-7239-4662-b787-7068922dcbca",
-      "walletId": "d6e9",
+      "walletId": "6d69",
       "money": 100000,
       "name": "Nạp tiền vào ví",
       "note": "",
       "currency": "₫",
-      "date": "2025-11-19"
+      "date": "2025-11-21"
     },
     {
-      "id": "1449f8c1-0e32-4553-a33c-ab64c3594476",
+      "id": "3123f81d-a7a2-4dc9-b388-c3ed7769221f",
       "userId": "bbb83b3c-7239-4662-b787-7068922dcbca",
-      "walletId": "d6e9",
-      "money": 10000,
+      "walletId": "4dd6",
+      "money": 20000,
       "name": "Nạp tiền vào ví",
       "note": "",
       "currency": "₫",
-      "date": "2025-11-19"
+      "date": "2025-11-21"
     }
   ]
 }

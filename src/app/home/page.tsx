@@ -116,6 +116,12 @@ export default function HomePage() {
         fetchTransactionsForMonth()
     }, [fetchTransactionsForMonth, fetchTransactionsForSelectedDay])
 
+    const handleWalletDeleted = (walletId: string | number) => {
+        setWallets((prev: any[]) => prev.filter(wallet => wallet.id !== walletId));
+        setRecentWallet((prev: any | null) => (prev?.id === walletId ? null : prev));
+        handleTransactionCreated();
+    };
+
     return (
         <>
             <div className="min-h-screen bg-linear-to-br from-gray-50 via-blue-50/20 to-purple-50/20">
@@ -130,6 +136,7 @@ export default function HomePage() {
                     setTransaction={setTransaction}
                     onWalletCreated={handleWalletCreated}
                     onWalletUpdated={handleWalletUpdated}
+                    onWalletDeleted={handleWalletDeleted}
                     onTransactionCreated={handleTransactionCreated}
                     wallets={wallets}
                     recentWallet={recentWallet}
