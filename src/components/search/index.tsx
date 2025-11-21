@@ -1,8 +1,7 @@
 "use client"
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {HiOutlineMagnifyingGlass} from "react-icons/hi2";
 import {createPortal} from "react-dom";
-import HintList from "./hintList/hintList";
 import SearchList from "@/src/components/search/hintList/searchList";
 import {useSelector} from "react-redux";
 import {RootState} from "@/src/store/store";
@@ -13,7 +12,7 @@ function normalizeStr(str: string) {
         .toLowerCase()
         .trim();
 }
-export default function SearchModal() {
+export default function SearchModal({setTransaction} :any) {
     const transactions = useSelector((state: RootState) => state.transactions.list);
     const [searchList,setSearchList] = useState([])
     const [isOpen, setIsOpen] = useState(false);
@@ -64,8 +63,15 @@ export default function SearchModal() {
         setTemporary(newSearch);
         prevWordsRef.current = currentWords;
     };
-
-
+    useEffect(() => {
+        setTemporary(transactions);
+        setSearchList(transactions);
+        prevWordsRef.current = [];
+    }, [transactions]);
+    // xử lý phần scroll to section :
+    const handleConfirm = () => {
+        setTransaction(searchList);
+    }
     return (
         <>
             <button
@@ -113,7 +119,7 @@ export default function SearchModal() {
                         </div>
 
                         {/* Body */}
-                        <SearchList searchList={searchList} setSearchList={setSearchList}  query={query}/>
+                        <SearchList setTransaction={setTransaction} closeModal={closeModal} searchList={searchList}  query={query}/>
 
                         {/* Footer */}
                         <div className="flex justify-end gap-3 px-6 py-4">
@@ -124,16 +130,16 @@ export default function SearchModal() {
                             >
                                 Cancel
                             </button>
-                            <button
-                                onClick={() => {
-                                    alert("Confirmed!");
-                                    closeModal();
-                                }}
-                                style={{borderRadius: '8px'}}
-                                className=" px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-md shadow-sm transition-all duration-200"
-                            >
-                                Confirm
-                            </button>
+                            {/*<button*/}
+                            {/*    onClick={() => {*/}
+                            {/*        closeModal();*/}
+                            {/*        handleConfirm();*/}
+                            {/*    }}*/}
+                            {/*    style={{borderRadius: '8px'}}*/}
+                            {/*    className=" px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-md shadow-sm transition-all duration-200"*/}
+                            {/*>*/}
+                            {/*    Confirm*/}
+                            {/*</button>*/}
                         </div>
                     </div>
                 </div>, document.body

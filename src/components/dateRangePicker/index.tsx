@@ -11,7 +11,7 @@ import {DatePicker} from '@mui/x-date-pickers/DatePicker';
 import {Dayjs} from "dayjs";
 import {HiOutlineCalendar} from "react-icons/hi";
 import UserService from "@/src/service/dataService";
-
+import {useScroll} from "@/src/app/scrollProvider"
 
 export default function DateRangePicker({transactions,setTransaction}: any) {
     const [start, setStart] = useState<Dayjs | null>(null);
@@ -35,6 +35,8 @@ export default function DateRangePicker({transactions,setTransaction}: any) {
             console.error('Error fetching transactions:', err);
         }
     };
+    // xử lý phần scroll, ấn nút thì scroll to section
+    const { scrollToSection } = useScroll();
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <Box display="flex" flexDirection="column">
@@ -67,6 +69,8 @@ export default function DateRangePicker({transactions,setTransaction}: any) {
                         <Button sx={{ textTransform: 'none',fontSize:'15px' }} variant="contained" onClick={() => {
                             setAnchorEl(null);
                             handleSubmit();
+                            setTimeout(() => scrollToSection("transaction-list") , 200);
+                            ;
                         }}>
                             Lọc
                         </Button>

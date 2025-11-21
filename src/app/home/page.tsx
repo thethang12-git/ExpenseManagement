@@ -3,10 +3,10 @@ import HeaderHome from "@/src/components/home/HeaderHome"
 import SummaryCard from "@/src/components/home/SummaryCard"
 import DateCard from "@/src/components/home/DateCard"
 import TransactionList from "@/src/components/home/transactionList"
-import { useCallback, useEffect, useState } from "react"
+import {useCallback, useEffect, useRef, useState} from "react"
 import UserService from "@/src/service/dataService"
 import { Button } from "@mui/material"
-
+import {useScroll} from "../scrollProvider"
 const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
 const monthMap: Record<string, string> = {
     Jan: "01",
@@ -110,12 +110,13 @@ export default function HomePage() {
         setWallets(prev => prev.map(wallet => (wallet.id === updatedWallet.id ? updatedWallet : wallet)));
         setRecentWallet(updatedWallet);
     };
+    // xử lý phần scroll to transaction list
+    const transactionListRef = useRef<any>(null);
+    const { registerRef } = useScroll();
 
-    // const handleTransactionCreated = useCallback(() => {
-    //     fetchTransactionsForSelectedDay()
-    //     fetchTransactionsForMonth()
-    // }, [fetchTransactionsForMonth, fetchTransactionsForSelectedDay])
-
+    useEffect(() => {
+        registerRef("transaction-list", transactionListRef)
+    }, []);
     return (
         <>
             <div className="min-h-screen bg-linear-to-br from-gray-50 via-blue-50/20 to-purple-50/20">
@@ -145,7 +146,10 @@ export default function HomePage() {
                         {/* Date Card */}
                         <DateCard day= {day} total={total}/>
                     </div>
-                    <TransactionList transactions={transactions} />
+                    <div ref={transactionListRef}>
+                        <TransactionList transactions={transactions} />
+                    </div>
+
                 </div>
             </div>
         </>

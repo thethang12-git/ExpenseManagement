@@ -20,6 +20,7 @@ export default function TransactionList({ transactions }: any) {
             </Box>
         );
     }
+    // Handle scroll to section
 
     return (
         <div className="mt-8 w-full">

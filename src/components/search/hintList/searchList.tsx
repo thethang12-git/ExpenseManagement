@@ -1,7 +1,31 @@
 "use client"
-import React from "react";
+import React, {useEffect, useRef} from "react";
+import {useScroll} from "@/src/app/scrollProvider";
+import {useSelector} from "react-redux";
+import {RootState} from "@/src/store/store";
+export default function SearchList({ setTransaction,closeModal,query, searchList }: any) {
+    // const transactions = useSelector((state: RootState) => state.transactions.list);
+    const {scrollToSection} = useScroll();
+    const [isChoosed, setIsChoose] = React.useState();
+    const handleClick = (itm: { id: any; }) => {
+        closeModal();
+        setTransaction(searchList)
+        setIsChoose(itm.id);
+        // scrollToSection("chooseItem");
+    }
+    useEffect(() => {
+        if(isChoosed){
+            console.log(isChoosed);
+        }
+    },[isChoosed])
 
-export default function SearchList({ query, searchList, setSearchList }: any) {
+    //
+    const chooseItemRef = useRef<any>(null);
+    const { registerRef } = useScroll();
+
+    useEffect(() => {
+        registerRef("chooseItem", chooseItemRef)
+    }, []);
     return (
         <div
             style={{ transformOrigin: "top" }}
@@ -18,6 +42,11 @@ export default function SearchList({ query, searchList, setSearchList }: any) {
                     ) : (
                         searchList.map((item: any) => (
                             <div
+                                onClick={() => {
+                                    handleClick(item)
+                                    setTimeout(() =>scrollToSection("transaction-list"),200)
+                                }}
+                                // ref={isChoosed === item.id ? chooseItemRef : null}
                                 key={item.id}
                                 className="w-full bg-white p-5 rounded-lg shadow-md flex items-center justify-between hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"
                             >

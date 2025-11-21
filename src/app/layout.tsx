@@ -3,7 +3,7 @@ import {Metadata} from "next";
 import "./globals.css";
 import Providers from '../store/provider';
 import InitUser from "@/src/app/initUser";
-import Popup from "@/src/components/popUp";
+import ScrollProvider from "@/src/app/scrollProvider";
 
 export const metadata: Metadata = {
   title: "Project",
@@ -14,12 +14,15 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html lang="vi">
       <body>
       <Providers >
           <InitUser/>
-          {children}
+          <ScrollProvider>
+              {children}
+          </ScrollProvider>
       </Providers>
       </body>
     </html>
