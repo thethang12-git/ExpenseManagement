@@ -55,7 +55,6 @@ export default function HomePage() {
             },0)
             setTotal(totall)
             // 
-            console.log('kiểm tra xem useEffect có chạy nhiều lần không')
         }).catch( err => {
             console.log(err);
         } )
@@ -115,8 +114,10 @@ export default function HomePage() {
     const { registerRef } = useScroll();
 
     useEffect(() => {
-        registerRef("transaction-list", transactionListRef)
-    }, []);
+        if (transactionListRef.current) {
+            registerRef("transaction-list", transactionListRef);
+        }
+    }, [registerRef])
     return (
         <>
             <div className="min-h-screen bg-linear-to-br from-gray-50 via-blue-50/20 to-purple-50/20">
@@ -149,7 +150,6 @@ export default function HomePage() {
                     <div ref={transactionListRef}>
                         <TransactionList transactions={transactions} />
                     </div>
-
                 </div>
             </div>
         </>
