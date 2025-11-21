@@ -42,16 +42,7 @@
       "icon": ":bank:",
       "name": "Savings",
       "default_balance": 5000,
-      "current_balance": 5200
-    },
-    {
-      "id": "c383",
-      "userId": "1",
-      "name": "ví mới",
-      "description": "",
-      "icon": ":wallet:",
-      "default_balance": 0,
-      "current_balance": 0
+      "current_balance": 20200200
     }
   ],
   "categories": [
@@ -78,10 +69,15 @@
       "userId": 2,
       "name": "Investment",
       "is_income": true
+    },
+    {
+      "id": "5",
+      "userId": 2,
+      "name": "Wallet recharge",
+      "is_income": true
     }
   ],
-  "transactions": 
-  [
+  "transactions": [
     {
       "userId": "1",
       "id": "1",
@@ -258,7 +254,6 @@
       "note": "Monthly phone plan",
       "currency": "₫"
     },
-
     {
       "userId": "2",
       "id": "17",

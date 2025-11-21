@@ -61,6 +61,7 @@ export default function AddMoneyModal({ wallet, isOpen, onClose, onDeposited }: 
                     name: "Nạp tiền vào ví",
                     note: note.trim(),
                     currency: "₫",
+                    categoryId: 5
                 }),
             ])
 
