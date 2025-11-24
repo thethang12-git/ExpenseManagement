@@ -48,31 +48,26 @@
   "categories": [
     {
       "id": "1",
-      "userId": 1,
       "name": "Salary",
       "is_income": true
     },
     {
       "id": "2",
-      "userId": 1,
       "name": "Food",
       "is_income": false
     },
     {
       "id": "3",
-      "userId": 1,
       "name": "Transportation",
       "is_income": false
     },
     {
       "id": "4",
-      "userId": 2,
       "name": "Investment",
       "is_income": true
     },
     {
       "id": "5",
-      "userId": 2,
       "name": "Wallet recharge",
       "is_income": true
     }
