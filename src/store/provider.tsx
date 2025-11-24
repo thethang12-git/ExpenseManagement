@@ -11,7 +11,34 @@ import {useAppDispatch} from "@/src/store/hooks";
 interface ProvidersProps {
     children: React.ReactNode;
 }
+function ValidateUser({children}:ProvidersProps) {
+    const router = useRouter();
+    const pathname = usePathname();
+    const isLoginPage = pathname === '/login' || (pathname === '/register');
+    useEffect(() => {
+        const getId = JSON.parse(localStorage.getItem("userId") || "null");
+        const getUser = JSON.parse(localStorage.getItem("user") || "null");
+        const getEmail = JSON.parse(localStorage.getItem("email") || "null");
+        UserService.validateUser(getEmail)
+            .then((result) => {
+                const validationResult = result.id == getId && result.name == getUser && result.username == getEmail;
+                if(!isLoginPage) {
+                    if (validationResult) {return}
+                    else {
+                        setTimeout(() => {
+                            localStorage.clear();
+                            router.push('/login');
+                        },1000)
+                        alert('sai thông tin,đăng nhập lại!')
+                    }
+                }
+            })
+            .catch((error) => {console.log(error)});
+    }, [pathname, router]);
+    return children;
+}
 function DispatchSeperate({ children }: ProvidersProps) {
+    const router = useRouter();
     const dispatch = useAppDispatch();
     useEffect(() => {
         const user = localStorage.getItem("userId");
@@ -22,7 +49,7 @@ function DispatchSeperate({ children }: ProvidersProps) {
                 dispatch(setTransactions(result.data))
             })
             .catch((error) => {console.log(error)});
-    }, [dispatch]);
+    }, [dispatch,router]);
     return children;
 }
 function Providers({ children }: ProvidersProps) {
@@ -43,9 +70,11 @@ function Providers({ children }: ProvidersProps) {
 
     return (
         <Provider store={store}>
-            <DispatchSeperate>
-                {children}
-            </DispatchSeperate>
+            <ValidateUser>
+                <DispatchSeperate>
+                    {children}
+                </DispatchSeperate>
+            </ValidateUser>
         </Provider>
         )
 }
