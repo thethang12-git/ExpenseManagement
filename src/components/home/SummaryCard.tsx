@@ -1,14 +1,17 @@
 "use client"
 
 import { useState } from "react"
-
+import ChartPopup from "../chart"
+import {createPortal} from "react-dom";
 type TabType = "LAST MONTH" | "THIS MONTH" | "FUTURE"
 
 export default function SummaryCard({inFlow,outFlow}: {inFlow:number,outFlow:number}) {
     const [activeTab, setActiveTab] = useState<TabType>("THIS MONTH")
-
+    const [popUpOpen, setPopupOpen] = useState<boolean>(false);
     const tabs: TabType[] = ["LAST MONTH", "THIS MONTH", "FUTURE"]
-
+    const handleClose = () => {
+        setPopupOpen(false);
+    }
     return (
         <div className="bg-white/80 backdrop-blur-md rounded-2xl shadow-xl border border-gray-200/50 p-8 hover:shadow-2xl transition-all duration-300">
             {/* Tabs */}
@@ -54,11 +57,15 @@ export default function SummaryCard({inFlow,outFlow}: {inFlow:number,outFlow:num
                     </span>
                 </div>
             </div>
-
+            {
+                popUpOpen && createPortal(
+                    <ChartPopup open={popUpOpen} onClose={handleClose}></ChartPopup>,document.body
+                )
+            }
             {/* View report link */}
             <div className="flex justify-center">
                 <a
-                    href="#"
+                    onClick={() => setPopupOpen(true)}
                     className="inline-flex items-center gap-2 text-green-600 hover:text-green-700 font-semibold text-sm transition-all duration-200 hover:gap-3 group"
                 >
                     <span>VIEW REPORT FOR THIS PERIOD</span>

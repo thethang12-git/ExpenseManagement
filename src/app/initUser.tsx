@@ -9,16 +9,16 @@ export default function InitUser() {
     const dispatch = useAppDispatch();
     const pathname = usePathname();
     const router = useRouter();
-    // useEffect(() => {
-    //     const user = localStorage.getItem("userId");
-    //     if (!user) return;
-    //     const userTrueId = JSON.parse(user);
-    //     UserService.getTransactions(userTrueId)
-    //         .then((result) => {
-    //             dispatch(setTransactions(result.data))
-    //         })
-    //         .catch((error) => {console.log(error)});
-    // }, [dispatch,pathname]);
+    useEffect(() => {
+        const user = localStorage.getItem("userId");
+        if (!user) return;
+        const userTrueId = JSON.parse(user);
+        UserService.getTransactions(userTrueId)
+            .then((result) => {
+                dispatch(setTransactions(result.data))
+            })
+            .catch((error) => {console.log(error)});
+    }, [dispatch,pathname]);
     useEffect(() => {
         const user = localStorage.getItem("user");
         console.log(user);
