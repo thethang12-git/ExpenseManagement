@@ -70,6 +70,26 @@
       "id": "5",
       "name": "Wallet recharge",
       "is_income": true
+    },
+    {
+      "id": "6",
+      "name": "Utilities",
+      "is_income": false
+    },
+    {
+      "id": "7",
+      "name": "Gym Membership",
+      "is_income": false
+    },
+    {
+      "id": "8",
+      "name": "Education",
+      "is_income": false
+    },
+    {
+      "id": "9",
+      "name": "Transportation (Other)",
+      "is_income": false
     }
   ],
   "transactions": [

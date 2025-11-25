@@ -6,6 +6,19 @@ import { useEffect, useState } from "react";
 import { useSelector } from 'react-redux';
 import Switch from '@mui/material/Switch';
 import CloseButton from 'react-bootstrap/CloseButton';
+// function randomColor() {
+//     const r = Math.floor(Math.random() * 256);
+//     const g = Math.floor(Math.random() * 256);
+//     const b = Math.floor(Math.random() * 256);
+//     return `rgba(${r}, ${g}, ${b}, 0.2)`; // Màu nền với độ mờ
+// }
+//
+// function randomBorderColor() {
+//     const r = Math.floor(Math.random() * 256);
+//     const g = Math.floor(Math.random() * 256);
+//     const b = Math.floor(Math.random() * 256);
+//     return `rgba(${r}, ${g}, ${b}, 1)`; // Màu viền không mờ
+// }
 export default function PieChart({ open, onClose,setSwitch,switchState }: { open: boolean, onClose: () => void, setSwitch: React.Dispatch<React.SetStateAction<boolean>>, switchState: boolean }) {
 ChartJS.register(ArcElement, Tooltip, Legend);
     const [animation,setAnimation] = useState<boolean>(false);
@@ -13,7 +26,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
     const transactions = useSelector((state: any) => state.transactions.list);
     useEffect(() => {
         if(open) {setTimeout(() => setAnimation(true), 100);}
-        else {setAnimation(false);}
+        // else {setAnimation(false);}
     }, [open]);
     useEffect(() => {
         const getId = JSON.parse(localStorage.getItem("userId")||"null");
@@ -35,11 +48,6 @@ ChartJS.register(ArcElement, Tooltip, Legend);
             });
         }
     }, []);
-    useEffect(() => {
-        console.log("Categories updated:" ,Categories,transactions);
-    },
-        [Categories]); 
-
     if (!open) return null;
 
     const handleClose = () => {
@@ -50,8 +58,10 @@ const data = {
   labels: Categories.map((itm: any) => itm.name),
   datasets: [
     {
-      label: Categories.map((itm: any) => itm.name),
+      label: 'Amount',
       data: Categories.map((itm: any) => itm.value),
+      // backgroundColor: Array.from({ length: Categories.length }, randomColor),
+      // borderColor : Array.from({ length: Categories.length }, randomColor),
       backgroundColor: [
         'rgba(255, 99, 132, 0.2)',
         'rgba(54, 162, 235, 0.2)',
@@ -59,6 +69,11 @@ const data = {
         'rgba(75, 192, 192, 0.2)',
         'rgba(153, 102, 255, 0.2)',
         'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 99, 71, 0.2)',
+          'rgba(100, 149, 237, 0.2)',
+          'rgba(60, 179, 113, 0.2)',
+          'rgba(255, 215, 0, 0.2)',
+          'rgba(221, 160, 221, 0.2)'
       ],
       borderColor: [
         'rgba(255, 99, 132, 1)',
@@ -67,6 +82,11 @@ const data = {
         'rgba(75, 192, 192, 1)',
         'rgba(153, 102, 255, 1)',
         'rgba(255, 159, 64, 1)',
+          'rgba(255, 99, 71, 1)',
+          'rgba(100, 149, 237, 1)',
+          'rgba(60, 179, 113, 1)',
+          'rgba(255, 215, 0, 1)',
+          'rgba(221, 160, 221, 1)'
       ],
       borderWidth: 1,
     },
