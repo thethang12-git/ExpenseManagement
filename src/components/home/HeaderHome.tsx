@@ -155,7 +155,14 @@ export default function HeaderHome({
                                             {wallets.length} ví
                                         </span>
                                     </div>
-                                    <div className="max-h-64 space-y-2 overflow-y-auto">
+                                    <div className="max-h-64 space-y-2 overflow-y-auto "
+                                         style={{
+                                            scrollbarWidth: "none",
+                                            msOverflowStyle: "none"}}
+                                    >
+                                        <style>
+                                            {`div::-webkit-scrollbar { display: none; }`}
+                                        </style>
                                         <div
                                             className={`flex items-center justify-between rounded-xl border px-3 py-2 transition cursor-pointer ${
                                                 selectedWalletId === null ? "border-green-400 bg-green-50" : "border-gray-100 bg-gray-50 hover:border-green-200"
@@ -202,10 +209,10 @@ export default function HeaderHome({
                                                                 : "border-gray-100 bg-gray-50 hover:border-green-200"
                                                     }`}
                                                 >
-                                                    <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+                                                    <div className="flex flex-col gap-2 justify-center">
                                                         <button
                                                             type="button"
-                                                            className="flex flex-1 items-center justify-between gap-3 rounded-lg bg-white/70 px-2 py-1 text-left transition hover:bg-white"
+                                                            className="rounded-3 flex flex-1 items-center justify-between gap-3 rounded-lg bg-white/70 px-2 py-1 text-left transition hover:bg-white"
                                                             onClick={() => {
                                                                 setSelectedWalletId(wallet.id);
                                                                 setIsWalletInfoOpen(false);
@@ -245,8 +252,9 @@ export default function HeaderHome({
                                                                 type="button"
                                                                 title="Chỉnh sửa"
                                                                 aria-label={`Chỉnh sửa ví ${wallet.name}`}
-                                                                onClick={() => {
+                                                                onClick={(event) => {
                                                                     setEditingWallet(wallet);
+                                                                    event.stopPropagation();
                                                                 }}
                                                                 className="rounded-full border border-gray-200 p-1.5 text-gray-500 transition hover:border-blue-300 hover:text-blue-600"
                                                             >

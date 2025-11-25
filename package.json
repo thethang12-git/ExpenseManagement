@@ -45,6 +45,7 @@
     "react-redux": "^9.2.0",
     "rsuite": "^5.83.4",
     "sass": "^1.94.1",
+    "tailwind-scrollbar-hide": "^4.0.0",
     "yup": "^1.7.1"
   },
   "devDependencies": {
