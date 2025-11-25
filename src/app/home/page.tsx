@@ -54,7 +54,7 @@ export default function HomePage() {
                 return acc += parseFloat(value.money)
             },0)
             setTotal(totall)
-            // 
+            //
         }).catch( err => {
             console.log(err);
         } )
@@ -85,7 +85,7 @@ export default function HomePage() {
                 setOutFlow(value.outflow)
                 }
             )
-            .catch(err => 
+            .catch(err =>
                 console.log(err))
         }
         },[day.month,day.year,wallets]);
@@ -118,6 +118,10 @@ export default function HomePage() {
             registerRef("transaction-list", transactionListRef);
         }
     }, [registerRef])
+    const handleWalletDeleted = (walletId: string | number) => {
+        setWallets((prev: any[]) => prev.filter(wallet => wallet.id !== walletId));
+        setRecentWallet((prev: any | null) => (prev?.id === walletId ? null : prev));
+    };
     return (
         <>
             <div className="min-h-screen bg-linear-to-br from-gray-50 via-blue-50/20 to-purple-50/20">
@@ -133,7 +137,7 @@ export default function HomePage() {
                     setTransaction={setTransaction}
                     onWalletCreated={handleWalletCreated}
                     onWalletUpdated={handleWalletUpdated}
-                    // onTransactionCreated={handleTransactionCreated}
+                    onWalletDeleted={handleWalletDeleted}
                     wallets={wallets}
                     recentWallet={recentWallet}
                 />
