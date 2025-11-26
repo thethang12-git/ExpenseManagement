@@ -52,6 +52,26 @@ function DispatchSeperate({ children }: ProvidersProps) {
     }, [dispatch,router]);
     return children;
 }
+function UpdateData({ children }: ProvidersProps) {
+    const dispatch = useAppDispatch();
+    useEffect(() => {
+        const handler = () =>
+        {
+            const user = localStorage.getItem("userId");
+            if (!user) return;
+            const userTrueId = JSON.parse(user);
+            UserService.getTransactions(userTrueId)
+                .then((result) => {
+                    dispatch(setTransactions(result.data))
+                })
+                .catch((error) => {console.log(error)});
+        }
+        const update = setInterval(handler, 5000);
+
+        return () => clearInterval(update);
+    }, [dispatch]);
+    return children;
+}
 function Providers({ children }: ProvidersProps) {
     const router = useRouter();
     const pathname = usePathname();
@@ -71,9 +91,11 @@ function Providers({ children }: ProvidersProps) {
     return (
         <Provider store={store}>
             <ValidateUser>
-                <DispatchSeperate>
-                    {children}
-                </DispatchSeperate>
+                <UpdateData>
+                    <DispatchSeperate>
+                        {children}
+                    </DispatchSeperate>
+                </UpdateData>
             </ValidateUser>
         </Provider>
         )

@@ -33,7 +33,7 @@
       "icon": ":moneybag:",
       "name": "ví mới",
       "default_balance": 1000,
-      "current_balance": 20000,
+      "current_balance": 17000,
       "description": ""
     },
     {
@@ -42,7 +42,7 @@
       "icon": ":bank:",
       "name": "Savings",
       "default_balance": 5000,
-      "current_balance": 20200200
+      "current_balance": 20150200
     }
   ],
   "categories": [
