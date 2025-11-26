@@ -33,7 +33,7 @@
       "icon": ":moneybag:",
       "name": "ví mới",
       "default_balance": 1000,
-      "current_balance": 17000,
+      "current_balance": 16000,
       "description": ""
     },
     {
@@ -432,6 +432,17 @@
       "walletId": 2,
       "date": "2025-06-16",
       "note": "Stransaction in 6/2025",
+      "currency": "₫"
+    },
+    {
+      "id": "8d5b13d6-5d76-448a-9bc8-e374dfb0738f",
+      "userId": "1",
+      "walletId": "1",
+      "categoryId": "default-du-lich",
+      "money": -1000,
+      "name": "Du lịch",
+      "date": "2025-11-26",
+      "note": "",
       "currency": "₫"
     }
   ]

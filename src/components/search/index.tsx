@@ -63,15 +63,10 @@ export default function SearchModal({setTransaction} :any) {
         setTemporary(newSearch);
         prevWordsRef.current = currentWords;
     };
-    useEffect(() => {
-        setTemporary(transactions);
-        setSearchList(transactions);
-        prevWordsRef.current = [];
-    }, [transactions]);
     // xử lý phần scroll to section :
-    const handleConfirm = () => {
-        setTransaction(searchList);
-    }
+    // const handleConfirm = () => {
+    //     setTransaction(searchList);
+    // }
     return (
         <>
             <button
