@@ -7,7 +7,7 @@ import {useState} from "react";
 
 type WalletHeroProps = {
     summary: WalletSummary;
-    onAddWallet?: (a:object) => void;
+    onAddWallet?: (a:any) => void;
 };
 
 const WalletHero = ({summary, onAddWallet}: WalletHeroProps) => {

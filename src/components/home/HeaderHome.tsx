@@ -39,7 +39,7 @@ export default function HeaderHome({
 
     // Calculate total balance from all wallets
     const totalBalance = useMemo(() => {
-        return wallets.reduce((sum, wallet) => {
+        return wallets.reduce((sum : any, wallet : any) => {
             return sum + (parseFloat(wallet.current_balance) || 0);
         }, 0);
     }, [wallets]);
