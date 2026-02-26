@@ -32,7 +32,14 @@ export default function ScrollProvider({ children }: { children: ReactNode }) {
     const animation = (key: string) => {
         const element = refs.current[key]?.current;
         if (element) {
-            element.style.backgroundColor = 'blue';
+            element.style.transition = "all 1s ease";
+            element.style.transform = "scale(1.2)";
+            element.style.boxShadow = "0 0 58px rgb(184, 242, 203)";
+            setTimeout(() => {
+                element.style.backgroundColor = "";
+                element.style.boxShadow = "";
+                element.style.transform = "scale(1)";
+            },1500)
         }
     };
 

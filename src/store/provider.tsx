@@ -87,7 +87,6 @@ function Providers({ children }: ProvidersProps) {
             router.push('/login');
         }
     }, [isLoginPage, router]);
-
     return (
         <Provider store={store}>
             <ValidateUser>
